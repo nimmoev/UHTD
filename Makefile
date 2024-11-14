@@ -1,19 +1,22 @@
-all: UHTD UHTDTests
+all: UHTD UnitTests clean
 
-UHTD: BasicGateLib.o BasicTestLib.o BasicGateLibTests.o UHTD.o
-	g++ BasicGateLib.o BasicTestLib.o BasicGateLibTests.o UHTD.o -o UHTD.out
+UHTD: BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTD.o
+	g++ BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTD.o -o UHTD.out
 
-UHTDTests: UHTDTests.o
-	g++ UHTDTests.o
+UnitTests: UHTDTests.o
+	g++  BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTDTests.o -o RunUnitTests.out
 
-BasicGateLib.o: BasicGateLib.cpp
-	g++ -c BasicGateLib.cpp
+BasicGateLib.o: BasicGateLib/BasicGateLib.cpp
+	g++ -c BasicGateLib/BasicGateLib.cpp
 
-BasicTestLib.o: BasicTestLib/BasicTestLib.cpp
-	g++ -c BasicTestLib/BasicTestLib.cpp
+BasicTestLib.o: BasicGateLib/BasicTestLib/BasicTestLib.cpp
+	g++ -c BasicGateLib/BasicTestLib/BasicTestLib.cpp
 
-BasicGateLibTests.o: BasicGateLibTests.cpp
-	g++ -c BasicGateLibTests.cpp
+BasicGateLibTests.o: BasicGateLib/BasicGateLibTests.cpp
+	g++ -c BasicGateLib/BasicGateLibTests.cpp
+
+Frontend.o: Frontend.cpp
+	g++ -c Frontend.cpp
 
 UHTD.o: UHTD.cpp
 	g++ -c UHTD.cpp

@@ -1,0 +1,3 @@
+[submodule "BasicGateLib"]
+	path = BasicGateLib
+	url = https://github.com/nimmoev/BasicGateLib
