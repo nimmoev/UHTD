@@ -6,3 +6,9 @@ Toolset:
  * Import: This tool imports a verilog/VHDL file to work with the other tools in this toolset.
  * Compute Test Vectors: This tool computes a minimized set of test vectors to determine if any Wires are Stuck-At-Fault.
  * Compute Controllability/Observability: This tool computes the Controllability and Observability scores for all Wires to determine if any Wire is likely to be connected to a Trojan gate.
+
+## Instructions
+On first clone, remember to  
+```
+git submodule update --init
+```

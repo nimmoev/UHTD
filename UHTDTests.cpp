@@ -1,5 +1,39 @@
 #include "UHTDTests.h"
 
+std::vector<void (*)()> UHTDTestFunctionVector = {
+    Frontend_ChoiceIsEmpty_ShouldFail,
+    Frontend_ChoiceHasChar_ShouldFail,
+    Frontend_ChoiceHasSymbol_ShouldFail,
+    Frontend_ChoiceIsNegative_ShouldFail,
+    Frontend_ChoiceIsZero_ShouldFail,
+    Frontend_ChoiceIsGreaterThanOptions_ShouldFail,
+    Frontend_ChoiceIsImport_ShouldSucceed,
+    Frontend_ChoiceIsImport_ShouldBeImport,
+    Frontend_ChoiceIsTestVector_ShouldSucceed,
+    Frontend_ChoiceIsTestVector_ShouldBeTestVector,
+    Frontend_ChoiceIsControllabilityObservability_ShouldSucceed,
+    Frontend_ChoiceIsControllabilityObservability_ShouldBeControllabilityObservability,
+    Frontend_ChoiceIsQuit_ShouldSucceed,
+    Frontend_ChoiceIsQuit_ShouldBeQuit
+};
+
+std::vector<std::string> UHTDTestNameVector = {
+    "Frontend_ChoiceIsEmpty_ShouldFail",
+    "Frontend_ChoiceHasChar_ShouldFail",
+    "Frontend_ChoiceHasSymbol_ShouldFail",
+    "Frontend_ChoiceIsNegative_ShouldFail",
+    "Frontend_ChoiceIsZero_ShouldFail",
+    "Frontend_ChoiceIsGreaterThanOptions_ShouldFail",
+    "Frontend_ChoiceIsImport_ShouldSucceed",
+    "Frontend_ChoiceIsImport_ShouldBeImport",
+    "Frontend_ChoiceIsTestVector_ShouldSucceed",
+    "Frontend_ChoiceIsTestVector_ShouldBeTestVector",
+    "Frontend_ChoiceIsControllabilityObservability_ShouldSucceed",
+    "Frontend_ChoiceIsControllabilityObservability_ShouldBeControllabilityObservability",
+    "Frontend_ChoiceIsQuit_ShouldSucceed",
+    "Frontend_ChoiceIsQuit_ShouldBeQuit"
+};
+
 UnitTestList UHTD_UTL("UHTD Unit Tests", UHTDTestFunctionVector, UHTDTestNameVector);
 
 void Frontend_ChoiceIsEmpty_ShouldFail() {
