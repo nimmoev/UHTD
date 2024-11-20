@@ -25,8 +25,8 @@ int main() {
             case IMPORT:
                 std::cout << "Import Not Implemented." << std::endl;
                 break;
-            case TESTVECTORS:
-                std::cout << "GenerateTestVectors not implemented." << std::endl;
+            case ATPG:
+                ATPGEntry();
                 break;
             case COTD:
                 std::cout << "ComputeControllabilityObservability not implemented." << std::endl;

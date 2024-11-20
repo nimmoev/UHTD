@@ -2,7 +2,7 @@
 
 std::vector<std::string> toolPrompts = {
     "Import Verilog File",
-    "Generate Test Vectors",
+    "Automatic Test Pattern Generation (ATPG)",
     "Compute Controllability-Observability Scores",
     "Quit"
 };

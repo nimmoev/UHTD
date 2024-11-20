@@ -9,8 +9,8 @@ std::vector<void (*)()> UHTDTestFunctionVector = {
     Frontend_ChoiceIsGreaterThanOptions_ShouldFail,
     Frontend_ChoiceIsImport_ShouldSucceed,
     Frontend_ChoiceIsImport_ShouldBeImport,
-    Frontend_ChoiceIsTestVector_ShouldSucceed,
-    Frontend_ChoiceIsTestVector_ShouldBeTestVector,
+    Frontend_ChoiceIsATPG_ShouldSucceed,
+    Frontend_ChoiceIsATPG_ShouldBeATPG,
     Frontend_ChoiceIsControllabilityObservability_ShouldSucceed,
     Frontend_ChoiceIsControllabilityObservability_ShouldBeControllabilityObservability,
     Frontend_ChoiceIsQuit_ShouldSucceed,
@@ -26,8 +26,8 @@ std::vector<std::string> UHTDTestNameVector = {
     "Frontend_ChoiceIsGreaterThanOptions_ShouldFail",
     "Frontend_ChoiceIsImport_ShouldSucceed",
     "Frontend_ChoiceIsImport_ShouldBeImport",
-    "Frontend_ChoiceIsTestVector_ShouldSucceed",
-    "Frontend_ChoiceIsTestVector_ShouldBeTestVector",
+    "Frontend_ChoiceIsATPG_ShouldSucceed",
+    "Frontend_ChoiceIsATPG_ShouldBeATPG",
     "Frontend_ChoiceIsControllabilityObservability_ShouldSucceed",
     "Frontend_ChoiceIsControllabilityObservability_ShouldBeControllabilityObservability",
     "Frontend_ChoiceIsQuit_ShouldSucceed",
@@ -70,14 +70,14 @@ void Frontend_ChoiceIsImport_ShouldBeImport() {
     UHTD_UTL.AssertEqual(res, IMPORT);
 }
 
-void Frontend_ChoiceIsTestVector_ShouldSucceed() { 
-    UHTD_UTL.AssertEqual(ParseStrToRangedNum(std::to_string(TESTVECTORS), toolPrompts.size(), nullptr), ERROR_NONE);
+void Frontend_ChoiceIsATPG_ShouldSucceed() { 
+    UHTD_UTL.AssertEqual(ParseStrToRangedNum(std::to_string(ATPG), toolPrompts.size(), nullptr), ERROR_NONE);
 }
 
-void Frontend_ChoiceIsTestVector_ShouldBeTestVector() {
+void Frontend_ChoiceIsATPG_ShouldBeATPG() {
     int res = 0;
-    ParseStrToRangedNum(std::to_string(TESTVECTORS), toolPrompts.size(), &res);
-    UHTD_UTL.AssertEqual(res, TESTVECTORS);
+    ParseStrToRangedNum(std::to_string(ATPG), toolPrompts.size(), &res);
+    UHTD_UTL.AssertEqual(res, ATPG);
 }
 
 void Frontend_ChoiceIsControllabilityObservability_ShouldSucceed() { 
@@ -102,5 +102,6 @@ void Frontend_ChoiceIsQuit_ShouldBeQuit() {
 
 int main() {
     BGL_UTL.RunTests();
+    ATPG_UTL.RunTests();
     UHTD_UTL.RunTests();
 }
