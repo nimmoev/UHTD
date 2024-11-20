@@ -1,6 +1,7 @@
 #ifndef UHTD_TESTS_H
 #define UHTD_TESTS_H
 
+#include "ATPGTests.h"
 #include "BasicGateLib/BasicGateLibTests.h"
 #include "BasicGateLib/BasicTestLib/BasicTestLib.h"
 #include "Error.h"
@@ -26,8 +27,8 @@ void Frontend_ChoiceIsZero_ShouldFail();
 void Frontend_ChoiceIsGreaterThanOptions_ShouldFail();
 void Frontend_ChoiceIsImport_ShouldSucceed();
 void Frontend_ChoiceIsImport_ShouldBeImport();
-void Frontend_ChoiceIsTestVector_ShouldSucceed();
-void Frontend_ChoiceIsTestVector_ShouldBeTestVector();
+void Frontend_ChoiceIsATPG_ShouldSucceed();
+void Frontend_ChoiceIsATPG_ShouldBeATPG();
 void Frontend_ChoiceIsControllabilityObservability_ShouldSucceed();
 void Frontend_ChoiceIsControllabilityObservability_ShouldBeControllabilityObservability();
 void Frontend_ChoiceIsQuit_ShouldSucceed();

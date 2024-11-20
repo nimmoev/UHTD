@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "ATPG.h"
 #include "Frontend.h"
 
 extern bool g_quit;

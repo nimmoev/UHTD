@@ -6,7 +6,7 @@
 
 #include "Error.h"
 
-enum tool {IMPORT = 1, TESTVECTORS = 2, COTD = 3, QUIT = 4};
+enum tool {IMPORT = 1, ATPG = 2, COTD = 3, QUIT = 4};
 
 extern std::vector<std::string> toolPrompts;
 
