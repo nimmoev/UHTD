@@ -40,6 +40,8 @@ std::vector<void (*)()> ATPGTestFunctionVector = {
     ATPG_JustifyXNOR_InputAShouldBe1,
     ATPG_JustifyXNOR_InputBShouldBe0,
     ATPG_JustifyXNOR_InputBShouldBe1,
+    TopSort_TestCase1_ShouldSucceed,
+    TopSort_TestCase2_ShouldSucceed
 };
 
 std::vector<std::string> ATPGTestNameVector = {
@@ -81,7 +83,9 @@ std::vector<std::string> ATPGTestNameVector = {
     "ATPG_JustifyXNOR_InputAShouldBe0",
     "ATPG_JustifyXNOR_InputAShouldBe1",
     "ATPG_JustifyXNOR_InputBShouldBe0",
-    "ATPG_JustifyXNOR_InputBShouldBe1"
+    "ATPG_JustifyXNOR_InputBShouldBe1",
+    "TopSort_TestCase1_ShouldSucceed",
+    "TopSort_TestCase2_ShouldSucceed"
 };
 
 UnitTestList ATPG_UTL("ATPG Unit Tests", ATPGTestFunctionVector, ATPGTestNameVector);
@@ -240,4 +244,49 @@ void ATPG_JustifyXNOR_InputBShouldBe0() {
 
 void ATPG_JustifyXNOR_InputBShouldBe1() {
     return;
+}
+
+void TopSort_TestCase1_ShouldSucceed() {
+    Wire in0, in1, out0;
+    
+    Gate g0(AND, {&in0, &in1}, &out0);
+
+    std::vector<Node*> inputNetList = {&in0, &in1, &g0, &out0};
+    std::vector<Node*> outputNetList;
+    
+    TopSort(inputNetList, outputNetList);
+
+    std::vector<int> outputIdList;
+    for (int i = 0; i < outputNetList.size(); i++) { 
+        outputIdList.push_back(outputNetList.at(i)->GetID());
+    }
+
+    ATPG_UTL.AssertEqual({in1.GetID(), in0.GetID(), g0.GetID(), out0.GetID()}, outputIdList);
+}
+
+void TopSort_TestCase2_ShouldSucceed() {
+    Wire ww, wv, wx, wy, wz;
+
+    // Gate type does not matter in this test
+    Gate gw(AND, {&wz}, &ww);
+    Gate gv(AND, {&ww}, &wv);
+    Gate gx(AND, {}, &wx);
+    Gate gy(AND, {&wx}, &wy);
+    Gate gz(AND, {&wy}, &wz);
+
+    std::vector<Node*> inputNetList = {&ww, &wv, &wx, &wy, &wz, &gw, &gv, &gx, &gy, &gz};
+    std::vector<Node*> outputNetList;
+    
+    TopSort(inputNetList, outputNetList);
+
+    Gate* gate = nullptr;
+    std::vector<int> outputIdList;
+    for (int i = 0; i < outputNetList.size(); i++) { 
+        gate = dynamic_cast<Gate*>(outputNetList.at(i));
+        if (gate != nullptr) {
+            outputIdList.push_back(outputNetList.at(i)->GetID());
+        }
+    }
+
+    ATPG_UTL.AssertEqual({gx.GetID(), gy.GetID(), gz.GetID(), gw.GetID(), gv.GetID()}, outputIdList);
 }

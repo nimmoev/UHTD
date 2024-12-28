@@ -1,6 +1,7 @@
 #include "UHTD.h"
 
 bool g_quit = false;
+std::vector<Node*> g_netList;
 
 // Entrance point for Unified Hardware Trojan Detection Toolset
 int main() {
@@ -26,7 +27,7 @@ int main() {
                 std::cout << "Import Not Implemented." << std::endl;
                 break;
             case ATPG:
-                ATPGEntry();
+                ATPGEntry(g_netList);
                 break;
             case COTD:
                 std::cout << "ComputeControllabilityObservability not implemented." << std::endl;

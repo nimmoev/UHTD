@@ -57,4 +57,7 @@ void ATPG_JustifyXNOR_InputAShouldBe1();
 void ATPG_JustifyXNOR_InputBShouldBe0();
 void ATPG_JustifyXNOR_InputBShouldBe1();
 
+void TopSort_TestCase1_ShouldSucceed();
+void TopSort_TestCase2_ShouldSucceed();
+
 #endif

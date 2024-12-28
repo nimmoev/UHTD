@@ -4,7 +4,7 @@ UHTD: BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o ATPG.o UHTD.o
 	g++ BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o ATPG.o UHTD.o -o UHTD.out
 
 UnitTests: ATPGTests.o UHTDTests.o
-	g++  BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o ATPGTests.o UHTDTests.o -o RunUnitTests.out
+	g++  BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o ATPG.o ATPGTests.o UHTDTests.o -o RunUnitTests.out
 
 BasicGateLib.o: BasicGateLib/BasicGateLib.cpp
 	g++ -c BasicGateLib/BasicGateLib.cpp
