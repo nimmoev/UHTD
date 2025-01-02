@@ -1,69 +1,200 @@
 #include "ATPG.h"
 
-void ATPGEntry(std::vector<Node*> netList) {
-    std::vector<Node*> topSortNetList;
-    
-    //Instantiate Netlist to ATPG classes
-
-    // Justify 
-
-    // Propogate
-
-    return;
-}
-
-int TopSort(std::vector<Node*> inputNetList, std::vector<Node*> &outputNetList) { 
-    std::stack<Node*> netListStack;
-    std::vector<int> idList;
-    std::vector<bool> visitedList;
-    int idPos = -1;
-
-    for (int i = 0; i < inputNetList.size(); i++) {
-        idList.push_back(inputNetList.at(i)->GetID());
-        visitedList.push_back(false);
+int ATPGEntry(std::vector<Node*> netList) {
+    int result = ERROR_NONE;
+    std::string resultStr;
+    std::vector<ATPGGate*> gateList;
+    std::vector<ATPGWire*> wireList;
+    std::vector<ATPGWire*> inputWireList;
+    std::vector<ATPGWire*> outputWireList;
+    if (netList.empty()) { 
+        return ERROR_NETLIST_EMPTY;
     }
 
-    for (int i = 0; i < inputNetList.size(); i++) { 
-        // Find current node's ID index in idList and visitedList
-        idPos = std::distance(idList.begin(), std::find(idList.begin(), idList.end(), inputNetList.at(i)->GetID()));
-        if (visitedList.at(idPos) == false) { 
-            TopSortSub(idPos, inputNetList.at(i), inputNetList, idList, visitedList, netListStack);
-        }
+    result = CopyNetListToATPG(netList, gateList, wireList, inputWireList, outputWireList);
+    if (result != ERROR_NONE) {
+        return result;
     }
 
-    while(!netListStack.empty()) {
-        outputNetList.push_back(netListStack.top());
-        netListStack.pop();
-    }
-
-    return ERROR_NONE;
-}
-
-void TopSortSub(int currPos, Node* node, std::vector<Node*> inputNetList, std::vector<int> idList, std::vector<bool> &visited, std::stack<Node*> &netListStack) {
-    Gate* gate = nullptr;
-    Wire* wire = nullptr;
-    int idPos = -1;
-    visited.at(currPos)= true;
-
-    gate = dynamic_cast<Gate*>(node);
-    wire = dynamic_cast<Wire*>(node);
-    if (gate != nullptr) { 
-        idPos = std::distance(idList.begin(), std::find(idList.begin(), idList.end(), gate->GetOutput()->GetID()));
-        if (!visited.at(idPos)) {
-            TopSortSub(idPos, (Node*)gate->GetOutput(), inputNetList, idList, visited, netListStack);
-        }
-    }
-    else if (wire != nullptr) { 
-        for (int i = 0; i < wire->GetOutputs().size(); i++) {
-            idPos = std::distance(idList.begin(), std::find(idList.begin(), idList.end(), wire->GetOutputs().at(i)->GetID()));
-            if (!visited.at(idPos)) {
-                TopSortSub(idPos, (Node*)wire->GetOutputs().at(i), inputNetList, idList, visited, netListStack);
+    // For each ATPGWire in the WireList, we need to calculate TVs to propogate the Stuck At Fault of that ATPGWire to the output
+    for (int i = 0; i < wireList.size(); i++) {
+        for (int j = 0; j < 2; j++) { 
+            result = ATPGCase(wireList.at(i), j, resultStr);
+            if (result != ERROR_NONE) { 
+                return result;
             }
         }
     }
-    else {
-        std::cout << "ERROR: GATE AND WIRE ARE NULLPTR" << std::endl;
+    return result;
+}
+
+// Parse existing NetList into various GateLists and WireLists used by the ATPG tool
+int CopyNetListToATPG(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList) {
+    int error = ERROR_NONE;
+    Gate* gate;
+    Wire* wire;
+    ATPGGate* newGate;
+    ATPGWire* newWire;
+    std::map<int, ATPGGate*> gateMap;
+    std::map<int, ATPGWire*> wireMap;
+    
+    if (netList.empty()) { 
+        return ERROR_NETLIST_EMPTY;
+    }
+    
+    // Instantiate ATPGGates and ATPGWires per each Gate and Wire
+    for (int i = 0; i < netList.size(); i++) { 
+        gate = dynamic_cast<Gate*>(netList.at(i));
+        if (gate != nullptr) {
+            newGate = new ATPGGate(gate);
+            gateList.push_back(newGate);
+            gateMap.insert(std::pair<const int, ATPGGate*>(newGate->GetGate()->GetID(), newGate));
+            continue;
+        }
+        wire = dynamic_cast<Wire*>(netList.at(i));
+        if (wire != nullptr) { 
+            newWire = new ATPGWire(wire);
+            wireList.push_back(newWire);
+            wireMap.insert(std::pair<const int, ATPGWire*>(newWire->GetWire()->GetID(), newWire));
+            if (newWire->GetWire()->GetInputs().empty() && !newWire->GetWire()->GetOutputs().empty()) {
+                inputWireList.push_back(newWire);
+            }
+            else if (!newWire->GetWire()->GetInputs().empty() && newWire->GetWire()->GetOutputs().empty()) {
+                outputWireList.push_back(newWire);
+            }
+            continue;            
+        }
+
+        if (gate == nullptr && wire == nullptr) { 
+            error = ERROR_NODE_INVALID_TYPE;
+        }
     }
 
-    netListStack.push(node);
+    // Link each new ATPGGate and ATPGWire to their respective inputs and outputs corresponding to the original Gates and Wires
+    for (int i = 0; i < netList.size(); i++) { 
+        // For each original Gate, link the corresponding input and output ATPGWires to the corresponding ATPGGate
+        gate = dynamic_cast<Gate*>(netList.at(i));
+        if (gate != nullptr) {
+            newGate = GetATPGGateFromMap(gateMap, gate->GetID());
+            if (newGate == nullptr) { 
+                continue;
+            }
+
+            for (int j = 0; j < gate->GetInputs().size(); j++) { 
+                newWire = GetATPGWireFromMap(wireMap, gate->GetInputs().at(j)->GetID());
+                if (newWire == nullptr) { 
+                    continue;
+                }
+                newGate->_ConnectInput(newWire);
+            }
+
+            newWire = GetATPGWireFromMap(wireMap, gate->GetOutput()->GetID());
+            if (newWire == nullptr) { 
+                continue;
+            }
+            newGate->_ConnectOutput(newWire);        
+        }
+
+        // For each original Wire, link the corresponding input and output ATPGGates to the corresponding ATPGWire
+        wire = dynamic_cast<Wire*>(netList.at(i));
+        if (wire != nullptr) { 
+
+            newWire = GetATPGWireFromMap(wireMap, wire->GetID());
+            if (newWire == nullptr) { 
+                continue;
+            }
+            
+            for (int j = 0; j < wire->GetInputs().size(); j++) { 
+                newGate = GetATPGGateFromMap(gateMap, wire->GetInputs().at(j)->GetID());
+                if (newGate == nullptr) { 
+                    continue;
+                }
+                newWire->_ConnectInput(newGate);
+            }
+
+            for (int j = 0; j < wire->GetOutputs().size(); j++) { 
+                newGate = GetATPGGateFromMap(gateMap, wire->GetOutputs().at(j)->GetID());
+                if (newGate == nullptr) { 
+                    continue;
+                }
+                newWire->_ConnectOutput(newGate);
+            }
+        }
+    }
+
+    return error;
+}
+
+// Return a copy of all IDs in a NetList
+std::vector<int> GetIDList(std::vector<ATPGGate*> netList) {
+    std::vector<int> resultIDList;
+    if (netList.empty()) {
+        return resultIDList;
+    }
+    for (int i = 0; i < netList.size(); i++) {
+        resultIDList.push_back(netList.at(i)->GetID());
+    }
+    return resultIDList;
+}
+
+// Return a copy of all IDs in a NetList
+std::vector<int> GetIDList(std::vector<ATPGWire*> netList) {
+    std::vector<int> resultIDList;
+    if (netList.empty()) {
+        return resultIDList;
+    }
+    for (int i = 0; i < netList.size(); i++) {
+        resultIDList.push_back(netList.at(i)->GetID());
+    }
+    return resultIDList;
+}
+
+// Return the matching ATPGGate from the gateMap
+ATPGGate* GetATPGGateFromMap(std::map<int, ATPGGate*> gateMap, int id) {
+    std::map<int, ATPGGate*>::iterator gateIt;
+    
+    gateIt = gateMap.find(id);
+    if (gateIt == gateMap.end())
+        return nullptr;
+    return gateMap.at(id);
+}
+
+// Return the matching ATPGWire from the wireMap
+ATPGWire* GetATPGWireFromMap(std::map<int, ATPGWire*> wireMap, int id) {
+    std::map<int, ATPGWire*>::iterator wireIt;
+    
+    wireIt = wireMap.find(id);
+    if (wireIt == wireMap.end())
+        return nullptr;
+    return wireMap.at(id);
+}
+
+// Parse error code given by ATPGEntry into user output
+void ATPGResult(int error) {
+    switch(error) {
+        case ERROR_NONE:
+            std::cout << "ATPG has successfully ran" << std::endl;
+            break;
+        case ERROR_NETLIST_EMPTY:
+            std::cout << "ATPG failed since no netlist has been provided" << std::endl;
+            break;
+    }
+}
+
+// Generate a Test Vector given a Wire to set and an error value
+//  wire - Pointer to the Wire to use
+//  errorVal - the value that the Wire is stuck at
+int ATPGCase(ATPGWire* wire, int errorVal, std::string &result) {
+    int error = ERROR_NONE;
+    return error;
+}
+
+int Justify(ATPGWire* wire, int errorVal) { 
+    int error = ERROR_NONE;
+    return error;
+}
+
+int Propogate(ATPGWire* wire, int errorVal) { 
+    int error = ERROR_NONE;
+    return error;
 }
