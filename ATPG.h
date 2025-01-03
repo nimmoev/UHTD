@@ -10,6 +10,13 @@
 class ATPGGate;
 class ATPGWire;
 
+int ATPGEntry(std::vector<Node*> netList);
+int CopyNetListToATPG(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
+int ATPGCase(ATPGWire* wire, int errorVal, std::string &result);
+int Justify(ATPGWire* wire, int errorVal);
+int Propogate(ATPGWire* wire, int errorVal);
+void ATPGResult(int error);
+
 class ATPGGate : public Gate { 
 protected:
     NodeState nodeState;
@@ -120,16 +127,9 @@ public:
 
 };
 
-
-int ATPGEntry(std::vector<Node*> netList);
-int CopyNetListToATPG(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
 std::vector<int> GetIDList(std::vector<ATPGGate*> netList);
 std::vector<int> GetIDList(std::vector<ATPGWire*> netList);
 ATPGGate* GetATPGGateFromMap(std::map<int, ATPGGate*> gateMap, int id);
 ATPGWire* GetATPGWireFromMap(std::map<int, ATPGWire*> wireMap, int id);
-void ATPGResult(int error);
-int ATPGCase(ATPGWire* wire, int errorVal, std::string &result);
-int Justify(ATPGWire* wire, int errorVal);
-int Propogate(ATPGWire* wire, int errorVal);
 
 #endif

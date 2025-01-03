@@ -15,18 +15,24 @@
 extern std::vector<void (*)()> ATPGTestFunctionVector;
 extern std::vector<std::string> ATPGTestNameVector;
 extern UnitTestList ATPG_UTL;
-void None_CopyNetListToATPG_ShouldSucceed();
-void None_CopyNetListToATPG_WireListShouldMatch();
-void None_CopyNetListToATPG_InputWireListShouldMatch();
-void None_CopyNetListToATPG_OutputWireListShouldMatch();
-void None_CopyNetListToATPG_ShouldBeErrorNetListEmpty();
-void None_CopyNetListToATPG_VerifyGateInputConnections();
-void None_CopyNetListToATPG_VerifyGateOutputConnection();
-void None_CopyNetListToATPG_VerifyWireInputConnections();
-void None_CopyNetListToATPG_VerifyWireInputNullConnections();
-void None_CopyNetListToATPG_VerifyWireOutputConnections();
-void None_CopyNetListToATPG_VerifyWireOutputNullConnections();
+void CopyNetListToATPG_ShouldSucceed();
+void CopyNetListToATPG_WireListShouldMatch();
+void CopyNetListToATPG_InputWireListShouldMatch();
+void CopyNetListToATPG_OutputWireListShouldMatch();
+void CopyNetListToATPG_ShouldBeErrorNetListEmpty();
+void CopyNetListToATPG_VerifyGateInputConnections();
+void CopyNetListToATPG_VerifyGateOutputConnection();
+void CopyNetListToATPG_VerifyWireInputConnections();
+void CopyNetListToATPG_VerifyWireInputNullConnections();
+void CopyNetListToATPG_VerifyWireOutputConnections();
+void CopyNetListToATPG_VerifyWireOutputNullConnections();
+void GetATPGGateFromMap_ShouldMatch();
+void GetATPGGateFromMap_LastItemShouldMatch();
+void GetATPGGateFromMap_ShouldBeNullptr();
+void GetATPGWireFromMap_ShouldMatch();
+void GetATPGWireFromMap_LastItemShouldMatch();
+void GetATPGWireFromMap_ShouldBeNullptr();
 
-void ATPG_ATPGCase_TestCase1();
+void ATPGCase_TestCase1();
 
 #endif

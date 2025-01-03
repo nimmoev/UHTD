@@ -125,6 +125,51 @@ int CopyNetListToATPG(std::vector<Node*> netList, std::vector<ATPGGate*> &gateLi
     return error;
 }
 
+// Generate a Test Vector given a Wire to set and an error value
+//  wire - Pointer to the Wire to use
+//  errorVal - the value that the Wire is stuck at
+int ATPGCase(ATPGWire* wire, int errorVal, std::string &result) {
+    int error = ERROR_NONE;
+    error = Justify(wire, errorVal);
+    if (error != ERROR_NONE) { 
+        return error;
+    }
+
+    error = Propogate(wire, errorVal);
+    if (error != ERROR_NONE) { 
+        return error;
+    }
+
+
+    return error;
+}
+
+
+int Justify(ATPGWire* wire, int errorVal) { 
+    int error = ERROR_NONE;
+    
+    // Firstly, check for the matching control value 
+
+    return error;
+}
+
+int Propogate(ATPGWire* wire, int errorVal) { 
+    int error = ERROR_NONE;
+    return error;
+}
+
+// Parse error code given by ATPGEntry into user output
+void ATPGResult(int error) {
+    switch(error) {
+        case ERROR_NONE:
+            std::cout << "ATPG has successfully ran" << std::endl;
+            break;
+        case ERROR_NETLIST_EMPTY:
+            std::cout << "ATPG failed since no netlist has been provided" << std::endl;
+            break;
+    }
+}
+
 // Return a copy of all IDs in a NetList
 std::vector<int> GetIDList(std::vector<ATPGGate*> netList) {
     std::vector<int> resultIDList;
@@ -167,34 +212,4 @@ ATPGWire* GetATPGWireFromMap(std::map<int, ATPGWire*> wireMap, int id) {
     if (wireIt == wireMap.end())
         return nullptr;
     return wireMap.at(id);
-}
-
-// Parse error code given by ATPGEntry into user output
-void ATPGResult(int error) {
-    switch(error) {
-        case ERROR_NONE:
-            std::cout << "ATPG has successfully ran" << std::endl;
-            break;
-        case ERROR_NETLIST_EMPTY:
-            std::cout << "ATPG failed since no netlist has been provided" << std::endl;
-            break;
-    }
-}
-
-// Generate a Test Vector given a Wire to set and an error value
-//  wire - Pointer to the Wire to use
-//  errorVal - the value that the Wire is stuck at
-int ATPGCase(ATPGWire* wire, int errorVal, std::string &result) {
-    int error = ERROR_NONE;
-    return error;
-}
-
-int Justify(ATPGWire* wire, int errorVal) { 
-    int error = ERROR_NONE;
-    return error;
-}
-
-int Propogate(ATPGWire* wire, int errorVal) { 
-    int error = ERROR_NONE;
-    return error;
 }
