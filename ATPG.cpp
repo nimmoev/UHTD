@@ -214,10 +214,7 @@ int Justify(ATPGWire* wire, WireState errorVal) {
     }
     // If there are no inputs, we can set the state and exit quickly
     if (wire->GetInputs().empty()) { 
-        if (wire->GetState() != WIRESTATE_UNSET) {
-            return ERROR_STATE_ALREADY_SET;
-        }
-        else if (wire->GetState() == errorVal) { 
+        if (wire->GetState() == errorVal) { 
             return error;
         }
         wire->SetState(errorVal);
@@ -228,11 +225,9 @@ int Justify(ATPGWire* wire, WireState errorVal) {
     for (int i = 0; i < wire->GetInputs().size(); i++) { 
         // If the gate is an inverter, it has no control value but can still be justified by special logic
         if (wire->GetInputs().at(i)->GetGateType() == INV) { 
-            for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
-                error = Justify(wire->GetInputs().at(i)->GetInputs().at(j), WireStateInverted.at(errorVal));
-                if (error != ERROR_NONE) { 
-                    return error;
-                }
+            error = Justify(wire->GetInputs().at(i)->GetInputs().at(0), WireStateInverted.at(errorVal));
+            if (error != ERROR_NONE) { 
+                return error;
             }
         }
         // If the ControlledValue is the errorVal, then we force an input to be the control value and all others as WIRESTATE_DC
@@ -241,7 +236,7 @@ int Justify(ATPGWire* wire, WireState errorVal) {
             for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
                 if (wire->GetInputs().at(i)->GetInputs().at(j)->GetState() == GateControlVal.at(wire->GetInputs().at(i)->GetGateType())) { 
                     controlled = true;
-                    controlledIdx = i;
+                    controlledIdx = j;
                 }
             }
             // We Justify one gate with the control value (if not already there). Then we Justify the rest with WIRESTATE_DCs
@@ -252,6 +247,7 @@ int Justify(ATPGWire* wire, WireState errorVal) {
                         return error;
                     }
                     controlled = true;
+                    controlledIdx = j;
                 }
                 else {
                     if (j == controlledIdx) { 
@@ -274,15 +270,15 @@ int Justify(ATPGWire* wire, WireState errorVal) {
             }
             // If we do not return prior, then we are good to force all inputs to the opposite of control value
             for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
-                error = Justify(wire->GetInputs().at(i)->GetInputs().at(j), WireStateInverted.at(GateControlVal.at(wire->GetInputs().at(i)->GetGateType())));
-                if (error != ERROR_NONE) { 
-                    return error;
-                }
+                Justify(wire->GetInputs().at(i)->GetInputs().at(j), WireStateInverted.at(GateControlVal.at(wire->GetInputs().at(i)->GetGateType())));
             }
         }
     }
     if (wire->GetState() != WIRESTATE_UNSET) {
         return ERROR_STATE_ALREADY_SET;
+    }
+    else if (wire->GetState() == errorVal) {
+        return error;
     }
     wire->SetState(errorVal);
     return error;
