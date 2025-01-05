@@ -1,5 +1,27 @@
 #include "ATPG.h"
 
+std::map<GateType, NodeState> GateControlVal = { 
+    {INV, UNSET},
+    {AND, OFF},
+    {OR, ON},
+    {NAND, OFF},
+    {NOR, ON},
+    {XOR, UNSET},
+    {XNOR, UNSET},
+    {UNDEF, UNSET},
+};
+
+std::map<GateType, NodeState> GateControlledState = {
+    {INV, UNSET},
+    {AND, OFF},
+    {OR, ON},
+    {NAND, ON},
+    {NOR, OFF},
+    {XOR, UNSET},
+    {XNOR, UNSET},
+    {UNDEF, UNSET},
+};
+
 int ATPGEntry(std::vector<Node*> netList) {
     int result = ERROR_NONE;
     std::string resultStr;
@@ -19,7 +41,7 @@ int ATPGEntry(std::vector<Node*> netList) {
     // For each ATPGWire in the WireList, we need to calculate TVs to propogate the Stuck At Fault of that ATPGWire to the output
     for (int i = 0; i < wireList.size(); i++) {
         for (int j = 0; j < 2; j++) { 
-            result = ATPGCase(wireList.at(i), j, resultStr);
+            result = ATPGCase(wireList.at(i), static_cast<NodeState>(j), resultStr);
             if (result != ERROR_NONE) { 
                 return result;
             }
@@ -46,6 +68,9 @@ int CopyNetListToATPG(std::vector<Node*> netList, std::vector<ATPGGate*> &gateLi
     for (int i = 0; i < netList.size(); i++) { 
         gate = dynamic_cast<Gate*>(netList.at(i));
         if (gate != nullptr) {
+            if (gate->GetGateType() == XOR || gate->GetGateType() == XNOR || gate->GetGateType() == UNDEF) { 
+                return ERROR_GATETYPE_INVALID_TYPE;
+            }
             newGate = new ATPGGate(gate);
             gateList.push_back(newGate);
             gateMap.insert(std::pair<const int, ATPGGate*>(newGate->GetGate()->GetID(), newGate));
@@ -121,14 +146,26 @@ int CopyNetListToATPG(std::vector<Node*> netList, std::vector<ATPGGate*> &gateLi
             }
         }
     }
-
     return error;
 }
 
-// Generate a Test Vector given a Wire to set and an error value
+// Delete all ATPG objects allocated onto the heap by CopyNetListToATPG
+void CleanupATPGNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList) {
+    for (ATPGGate* gate : gateList) { 
+        delete gate;
+    }
+    gateList.clear();
+
+    for (ATPGWire* wire : wireList) { 
+        delete wire;
+    }
+    wireList.clear();
+}
+
+// Generate a Test Vector given a Wire and an error value
 //  wire - Pointer to the Wire to use
 //  errorVal - the value that the Wire is stuck at
-int ATPGCase(ATPGWire* wire, int errorVal, std::string &result) {
+int ATPGCase(ATPGWire* wire, NodeState errorVal, std::string &result) {
     int error = ERROR_NONE;
     error = Justify(wire, errorVal);
     if (error != ERROR_NONE) { 
@@ -139,21 +176,54 @@ int ATPGCase(ATPGWire* wire, int errorVal, std::string &result) {
     if (error != ERROR_NONE) { 
         return error;
     }
-
-
     return error;
 }
 
 
-int Justify(ATPGWire* wire, int errorVal) { 
+int Justify(ATPGWire* wire, NodeState errorVal) { 
     int error = ERROR_NONE;
-    
-    // Firstly, check for the matching control value 
+    if (wire == nullptr) { 
+        return ERROR_WIRE_IS_NULL;
+    }
+    if (wire->GetState() != UNSET) { 
+        return ERROR_STATE_ALREADY_SET;
+    }
 
+    if (wire->GetInputs().empty()) { 
+        wire->SetState(errorVal);
+    }
+    else { 
+        for (int i = 0; i < wire->GetInputs().size(); i++) { 
+            // Inverter is one of the gates 
+            if (wire->GetInputs().at(i)->GetGateType() == INV) { 
+                for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
+                    error = Justify(wire->GetInputs().at(i)->GetInputs().at(j), GetOppNodeState(errorVal));
+                }
+            }
+            // If the ControlledValue is what we want, then we force the first input to be a Control value and all others as DC
+            else if (GateControlledState.at(wire->GetInputs().at(i)->GetGateType()) == errorVal) { 
+                for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
+                    if (j == 0) {
+                        error = Justify(wire->GetInputs().at(i)->GetInputs().at(j), GateControlVal.at(wire->GetInputs().at(i)->GetGateType()));
+                    }
+                    else {
+                        error = Justify(wire->GetInputs().at(i)->GetInputs().at(j), DC);
+                    }
+                }
+            }
+            // If the ControlledValue is opposite of what we want, we then force all inputs to be opposite of Control value
+            else { 
+                for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
+                    error = Justify(wire->GetInputs().at(i)->GetInputs().at(j), GetOppNodeState(GateControlVal.at(wire->GetInputs().at(i)->GetGateType())));
+                }
+            }
+        }
+        wire->SetState(errorVal);
+    }
     return error;
 }
 
-int Propogate(ATPGWire* wire, int errorVal) { 
+int Propogate(ATPGWire* wire, NodeState errorVal) { 
     int error = ERROR_NONE;
     return error;
 }
@@ -212,4 +282,19 @@ ATPGWire* GetATPGWireFromMap(std::map<int, ATPGWire*> wireMap, int id) {
     if (wireIt == wireMap.end())
         return nullptr;
     return wireMap.at(id);
+}
+
+// Return the opposite of the input NodeState
+NodeState GetOppNodeState(NodeState in) { 
+    switch(in) { 
+        case OFF:
+            return ON;
+        case ON:
+            return OFF;
+        case DC:
+            return DC;
+        case UNSET:
+            return UNSET;
+    }
+    return UNSET;
 }
