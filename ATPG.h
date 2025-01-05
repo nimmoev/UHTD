@@ -8,9 +8,11 @@
 #include "BasicGateLib/BasicGateLib.h"
 #include "Error.h"
 
-enum NodeState {OFF = 0, ON = 1, DC = 2, UNSET = 3};
-extern std::map<GateType, NodeState> GateControlVal;
-extern std::map<GateType, NodeState> GateControlledState;
+enum WireState {WIRESTATE_OFF = 0, WIRESTATE_ON = 1, WIRESTATE_DC = 2, WIRESTATE_UNSET = 3};
+extern std::map<GateType, bool> GateInverted;
+extern std::map<WireState, WireState> WireStateInverted;
+extern std::map<GateType, WireState> GateControlVal;
+extern std::map<GateType, WireState> GateStateWhileControlled;
 
 class ATPGGate;
 class ATPGWire;
@@ -18,9 +20,9 @@ class ATPGWire;
 int ATPGEntry(std::vector<Node*> netList);
 int CopyNetListToATPG(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
 void CleanupATPGNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList);
-int ATPGCase(ATPGWire* wire, NodeState errorVal, std::string &result);
-int Justify(ATPGWire* wire, NodeState errorVal);
-int Propogate(ATPGWire* wire, NodeState errorVal);
+int ATPGCase(ATPGWire* wire, WireState errorVal, std::string &result);
+int Justify(ATPGWire* wire, WireState errorVal);
+int Propogate(ATPGWire* wire);
 void ATPGResult(int error);
 
 class ATPGGate { 
@@ -82,14 +84,14 @@ public:
 
 class ATPGWire { 
 protected:
-    NodeState nodeState;
+    WireState wireState;
     Wire* wire;
     std::vector<ATPGGate*> ATPGInputs;
     std::vector<ATPGGate*> ATPGOutputs;
 
 public:
     ATPGWire(Wire* wire) { 
-        this->nodeState = UNSET;
+        this->wireState = WIRESTATE_UNSET;
         this->wire = wire;
         this->ATPGInputs.clear();
         this->ATPGOutputs.clear();
@@ -132,11 +134,11 @@ public:
         this->ATPGOutputs.push_back(output);
         return true;
     }
-    NodeState GetState() { 
-        return this->nodeState;
+    WireState GetState() { 
+        return this->wireState;
     }
-    void SetState(NodeState nodeState) { 
-        this->nodeState = nodeState;
+    void SetState(WireState wireState) { 
+        this->wireState = wireState;
     }
 };
 
@@ -144,6 +146,5 @@ std::vector<int> GetIDList(std::vector<ATPGGate*> netList);
 std::vector<int> GetIDList(std::vector<ATPGWire*> netList);
 ATPGGate* GetATPGGateFromMap(std::map<int, ATPGGate*> gateMap, int id);
 ATPGWire* GetATPGWireFromMap(std::map<int, ATPGWire*> wireMap, int id);
-NodeState GetOppNodeState(NodeState in);
 
 #endif

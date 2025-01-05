@@ -21,4 +21,7 @@ const int ERROR_NONINT_PRESENT = 0x30;
 const int ERROR_EMPTY_STR = 0x31;
 const int ERROR_INT_OUT_OF_RANGE = 0x32;
 const int ERROR_STATE_ALREADY_SET = 0x33;
+const int ERROR_STATE_NOT_SET = 0x34;
+const int ERROR_STATE_CONTROLLED = 0x35;
+
 #endif
