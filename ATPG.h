@@ -9,21 +9,25 @@
 #include "Error.h"
 
 enum WireState {WIRESTATE_OFF = 0, WIRESTATE_ON = 1, WIRESTATE_DC = 2, WIRESTATE_UNSET = 3};
+enum StuckAtFault {SAF0 = 0, SAF1 = 1};
 extern std::map<GateType, bool> GateInverted;
-extern std::map<WireState, WireState> WireStateInverted;
 extern std::map<GateType, WireState> GateControlVal;
 extern std::map<GateType, WireState> GateStateWhileControlled;
+extern std::map<StuckAtFault, WireState> StuckAtFaultWireState;
+extern std::map<WireState, WireState> WireStateInverted;
+extern std::map<WireState, std::string> WireStateString;
 
 class ATPGGate;
 class ATPGWire;
 
-int ATPGEntry(std::vector<Node*> netList);
-int CopyNetListToATPG(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
-void CleanupATPGNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList);
-int ATPGCase(ATPGWire* wire, WireState errorVal, std::string &result);
+int ATPGEntry(std::vector<Node*> netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector);
+int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
+void ATPGClearWireState(ATPGWire* wire);
+void ATPGCleanupNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList);
+int ATPGCase(ATPGWire* wire, WireState errorVal, std::vector<ATPGWire*> inputWireList, std::vector<ATPGWire*> outputWireList, std::string &result);
 int Justify(ATPGWire* wire, WireState errorVal);
 int Propogate(ATPGWire* wire);
-void ATPGResult(int error);
+void ATPGResult(int error, std::vector<std::string> fullResultVector, std::vector<std::string> minimizedResultVector);
 
 class ATPGGate { 
 protected:

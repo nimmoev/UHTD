@@ -6,6 +6,7 @@ std::vector<Node*> g_netList;
 // Entrance point for Unified Hardware Trojan Detection Toolset
 int main() {
     std::string input;
+    std::vector<std::string> resultVec1, resultVec2;
     int promptCtr, choice, error;
     do {
         error = ERROR_NONE;
@@ -28,8 +29,8 @@ int main() {
                 std::cout << "Import Not Implemented." << std::endl;
                 break;
             case ATPG:
-                error = ATPGEntry(g_netList);
-                ATPGResult(error);
+                error = ATPGEntry(g_netList, resultVec1, resultVec2);
+                ATPGResult(error, resultVec1, resultVec2);
                 break;
             case COTD:
                 std::cout << "ComputeControllabilityObservability not implemented." << std::endl;
@@ -41,6 +42,8 @@ int main() {
                 std::cout << "Choice is a valid integer but not a valid tool." << std::endl;
                 break;
         }
+        resultVec1.clear();
+        resultVec2.clear();
     } while (!g_quit);
     return 0;
 }
