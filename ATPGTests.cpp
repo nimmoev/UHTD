@@ -127,7 +127,11 @@ std::vector<void (*)()> ATPGTestFunctionVector = {
     ATPGCase_TestCase2ISA0,
     ATPGCase_TestCase2ISA1,
     ATPGEntry_TestCase2_FullResultVectorShouldMatch,
-    ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch
+    ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch,
+    ATPGEntry_TestCase3_FullResultVectorShouldMatch,
+    ATPGEntry_TestCase3_MinimizedResultVectorShouldMatch,
+    ATPGEntry_TestCase4_FullResultVectorShouldMatch,
+    ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch
 };
 
 std::vector<std::string> ATPGTestNameVector = {
@@ -257,7 +261,11 @@ std::vector<std::string> ATPGTestNameVector = {
     "ATPGCase_TestCase2ISA0",
     "ATPGCase_TestCase2ISA1",
     "ATPGEntry_TestCase2_FullResultVectorShouldMatch",
-    "ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch"
+    "ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch",
+    "ATPGEntry_TestCase3_FullResultVectorShouldMatch",
+    "ATPGEntry_TestCase3_MinimizedResultVectorShouldMatch",
+    "ATPGEntry_TestCase4_FullResultVectorShouldMatch",
+    "ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch"
 };
 
 UnitTestList ATPG_UTL("ATPG Unit Tests", ATPGTestFunctionVector, ATPGTestNameVector);
@@ -1346,7 +1354,7 @@ void ATPGCase_TestCase1() {
     ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     // h
     ATPGCase(ATPGWireList.at(7), WIRESTATE_ON, ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,X,1,X,1},{j}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={1X1X1},{j}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1356,7 +1364,7 @@ void ATPGCase_TestCase2ASA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(0), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1366,7 +1374,7 @@ void ATPGCase_TestCase2ASA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(0), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={0,1,1,1,0},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={01110},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1376,7 +1384,7 @@ void ATPGCase_TestCase2BSA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(1), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1386,7 +1394,7 @@ void ATPGCase_TestCase2BSA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(1), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,0,1,1,0},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={10110},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1396,7 +1404,7 @@ void ATPGCase_TestCase2CSA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(2), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1406,7 +1414,7 @@ void ATPGCase_TestCase2CSA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(2), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,0,1,0},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11010},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1416,7 +1424,7 @@ void ATPGCase_TestCase2DSA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(3), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1426,7 +1434,7 @@ void ATPGCase_TestCase2DSA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(3), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,0,0},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11100},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1436,7 +1444,7 @@ void ATPGCase_TestCase2ESA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(4), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,1},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11111},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1446,7 +1454,7 @@ void ATPGCase_TestCase2ESA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(4), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1456,7 +1464,7 @@ void ATPGCase_TestCase2FSA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(5), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1466,7 +1474,7 @@ void ATPGCase_TestCase2FSA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(5), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={0,X,1,1,0},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={0X110},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1476,7 +1484,7 @@ void ATPGCase_TestCase2GSA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(6), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1486,7 +1494,7 @@ void ATPGCase_TestCase2GSA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(6), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,0,X,0},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={110X0},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1496,7 +1504,7 @@ void ATPGCase_TestCase2HSA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(7), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1506,7 +1514,7 @@ void ATPGCase_TestCase2HSA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(7), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,1},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11111},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1516,7 +1524,7 @@ void ATPGCase_TestCase2ISA0() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(8), StuckAtFaultWireState.at(SAF0), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={0,X,X,X,X},{i}={1}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={0XXXX},{i}={1}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
@@ -1526,30 +1534,30 @@ void ATPGCase_TestCase2ISA1() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGTestCase2NetList(ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGCase(ATPGWireList.at(8), StuckAtFaultWireState.at(SAF1), ATPGInputWireList, ATPGOutputWireList, resultStr);
-    ATPG_UTL.AssertEqual("{a,b,c,d,e}={1,1,1,1,0},{i}={0}", resultStr);
+    ATPG_UTL.AssertEqual("{abcde}={11110},{i}={0}", resultStr);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
 }
 
 void ATPGEntry_TestCase2_FullResultVectorShouldMatch() {
     std::vector<std::string> correctResultVector = {
-        "a SAF0:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "a SAF1:{a,b,c,d,e}={0,1,1,1,0},{i}={1}",
-        "b SAF0:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "b SAF1:{a,b,c,d,e}={1,0,1,1,0},{i}={1}",
-        "c SAF0:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "c SAF1:{a,b,c,d,e}={1,1,0,1,0},{i}={1}",
-        "d SAF0:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "d SAF1:{a,b,c,d,e}={1,1,1,0,0},{i}={1}",
-        "e SAF0:{a,b,c,d,e}={1,1,1,1,1},{i}={1}",
-        "e SAF1:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "f SAF0:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "f SAF1:{a,b,c,d,e}={0,X,1,1,0},{i}={1}",
-        "g SAF0:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "g SAF1:{a,b,c,d,e}={1,1,0,X,0},{i}={1}",
-        "h SAF0:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "h SAF1:{a,b,c,d,e}={1,1,1,1,1},{i}={1}",
-        "i SAF0:{a,b,c,d,e}={0,X,X,X,X},{i}={1}",
-        "i SAF1:{a,b,c,d,e}={1,1,1,1,0},{i}={0}"
+        "a SAF0:{abcde}={11110},{i}={0}",
+        "a SAF1:{abcde}={01110},{i}={1}",
+        "b SAF0:{abcde}={11110},{i}={0}",
+        "b SAF1:{abcde}={10110},{i}={1}",
+        "c SAF0:{abcde}={11110},{i}={0}",
+        "c SAF1:{abcde}={11010},{i}={1}",
+        "d SAF0:{abcde}={11110},{i}={0}",
+        "d SAF1:{abcde}={11100},{i}={1}",
+        "e SAF0:{abcde}={11111},{i}={1}",
+        "e SAF1:{abcde}={11110},{i}={0}",
+        "f SAF0:{abcde}={11110},{i}={0}",
+        "f SAF1:{abcde}={0X110},{i}={1}",
+        "g SAF0:{abcde}={11110},{i}={0}",
+        "g SAF1:{abcde}={110X0},{i}={1}",
+        "h SAF0:{abcde}={11110},{i}={0}",
+        "h SAF1:{abcde}={11111},{i}={1}",
+        "i SAF0:{abcde}={0XXXX},{i}={1}",
+        "i SAF1:{abcde}={11110},{i}={0}"
     };
     std::vector<std::string> fullResultVector, minimizedResultVector;
     std::vector<Node*> netList;
@@ -1560,19 +1568,127 @@ void ATPGEntry_TestCase2_FullResultVectorShouldMatch() {
 
 void ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch() {
     std::vector<std::string> correctResultVector = {
-        "a SAF0, b SAF0, c SAF0, d SAF0, e SAF1, f SAF0, g SAF0, h SAF0, i SAF1:{a,b,c,d,e}={1,1,1,1,0},{i}={0}",
-        "a SAF1:{a,b,c,d,e}={0,1,1,1,0},{i}={1}",
-        "b SAF1:{a,b,c,d,e}={1,0,1,1,0},{i}={1}",
-        "c SAF1:{a,b,c,d,e}={1,1,0,1,0},{i}={1}",
-        "d SAF1:{a,b,c,d,e}={1,1,1,0,0},{i}={1}",
-        "e SAF0, h SAF1:{a,b,c,d,e}={1,1,1,1,1},{i}={1}",
-        "f SAF1:{a,b,c,d,e}={0,X,1,1,0},{i}={1}",
-        "g SAF1:{a,b,c,d,e}={1,1,0,X,0},{i}={1}",
-        "i SAF0:{a,b,c,d,e}={0,X,X,X,X},{i}={1}"
+        "a SAF0, b SAF0, c SAF0, d SAF0, e SAF1, f SAF0, g SAF0, h SAF0, i SAF1:{abcde}={11110},{i}={0}",
+        "a SAF1:{abcde}={01110},{i}={1}",
+        "b SAF1:{abcde}={10110},{i}={1}",
+        "c SAF1:{abcde}={11010},{i}={1}",
+        "d SAF1:{abcde}={11100},{i}={1}",
+        "e SAF0, h SAF1:{abcde}={11111},{i}={1}",
+        "f SAF1:{abcde}={0X110},{i}={1}",
+        "g SAF1:{abcde}={110X0},{i}={1}",
+        "i SAF0:{abcde}={0XXXX},{i}={1}"
     };
     std::vector<std::string> fullResultVector, minimizedResultVector;
     std::vector<Node*> netList;
     GetTestCase2NetList(netList);
+    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPG_UTL.AssertEqual(correctResultVector, minimizedResultVector);
+}
+
+void ATPGEntry_TestCase3_FullResultVectorShouldMatch() {
+    std::vector<std::string> correctResultVector = {
+        "a SAF0:{abcdef}={110000},{k}={1}", 
+        "a SAF1:{abcdef}={010000},{k}={0}", 
+        "b SAF0:{abcdef}={110000},{k}={1}", 
+        "b SAF1:{abcdef}={100000},{k}={0}", 
+        "c SAF0:{abcdef}={111000},{k}={0}", 
+        "c SAF1:{abcdef}={110000},{k}={1}", 
+        "d SAF0:{abcdef}={110100},{k}={0}", 
+        "d SAF1:{abcdef}={110000},{k}={1}", 
+        "e SAF0:{abcdef}={110010},{k}={0}", 
+        "e SAF1:{abcdef}={110000},{k}={1}", 
+        "f SAF0:{abcdef}={110001},{k}={0}", 
+        "f SAF1:{abcdef}={110000},{k}={1}", 
+        "g SAF0:{abcdef}={0X0000},{k}={0}", 
+        "g SAF1:{abcdef}={110000},{k}={1}", 
+        "h SAF0:{abcdef}={111X00},{k}={0}", 
+        "h SAF1:{abcdef}={110000},{k}={1}", 
+        "i SAF0:{abcdef}={110000},{k}={1}", 
+        "i SAF1:{abcdef}={11001X},{k}={0}", 
+        "j SAF0:{abcdef}={110000},{k}={1}", 
+        "j SAF1:{abcdef}={0XXX00},{k}={0}", 
+        "k SAF0:{abcdef}={110000},{k}={1}",  
+        "k SAF1:{abcdef}={0XXXXX},{k}={0}"
+    };
+    std::vector<std::string> fullResultVector, minimizedResultVector;
+    std::vector<Node*> netList;
+    GetTestCase3NetList(netList);
+    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPG_UTL.AssertEqual(correctResultVector, fullResultVector);
+}
+
+void ATPGEntry_TestCase3_MinimizedResultVectorShouldMatch() {
+    std::vector<std::string> correctResultVector = {
+        "a SAF0, b SAF0, c SAF1, d SAF1, e SAF1, f SAF1, g SAF1, h SAF1, i SAF0, j SAF0, k SAF0:{abcdef}={110000},{k}={1}", 
+        "a SAF1:{abcdef}={010000},{k}={0}", 
+        "b SAF1:{abcdef}={100000},{k}={0}", 
+        "c SAF0:{abcdef}={111000},{k}={0}", 
+        "d SAF0:{abcdef}={110100},{k}={0}", 
+        "e SAF0:{abcdef}={110010},{k}={0}", 
+        "f SAF0:{abcdef}={110001},{k}={0}", 
+        "g SAF0:{abcdef}={0X0000},{k}={0}", 
+        "h SAF0:{abcdef}={111X00},{k}={0}", 
+        "i SAF1:{abcdef}={11001X},{k}={0}", 
+        "j SAF1:{abcdef}={0XXX00},{k}={0}", 
+        "k SAF1:{abcdef}={0XXXXX},{k}={0}"
+    };
+    std::vector<std::string> fullResultVector, minimizedResultVector;
+    std::vector<Node*> netList;
+    GetTestCase3NetList(netList);
+    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPG_UTL.AssertEqual(correctResultVector, minimizedResultVector);
+}
+
+void ATPGEntry_TestCase4_FullResultVectorShouldMatch() {
+    std::vector<std::string> correctResultVector = {
+        "a SAF0:{abcdef}={110000},{k}={0}",
+        "a SAF1:{abcdef}={010000},{k}={1}", 
+        "b SAF0:{abcdef}={110000},{k}={0}",
+        "b SAF1:{abcdef}={100000},{k}={1}",
+        "c SAF0:{abcdef}={0X1000},{k}={0}",
+        "c SAF1:{abcdef}={0X0000},{k}={1}",
+        "d SAF0:{abcdef}={0X0100},{k}={0}",
+        "d SAF1:{abcdef}={0X0000},{k}={1}",
+        "e SAF0:{abcdef}={11XX10},{k}={1}",
+        "e SAF1:{abcdef}={11XX00},{k}={0}",
+        "f SAF0:{abcdef}={11XX01},{k}={1}",
+        "f SAF1:{abcdef}={11XX00},{k}={0}",
+        "g SAF0:{abcdef}={110000},{k}={0}",
+        "g SAF1:{abcdef}={0X0000},{k}={1}",
+        "h SAF0:{abcdef}={0X1X00},{k}={0}",
+        "h SAF1:{abcdef}={0X0000},{k}={1}",
+        "i SAF0:{abcdef}={11XX00},{k}={0}",
+        "i SAF1:{abcdef}={11XX1X},{k}={1}",
+        "j SAF0:{abcdef}={11XX00},{k}={0}",
+        "j SAF1:{abcdef}={0X0000},{k}={1}",
+        "k SAF0:{abcdef}={0X00XX},{k}={1}",
+        "k SAF1:{abcdef}={11XX00},{k}={0}"
+    };
+    std::vector<std::string> fullResultVector, minimizedResultVector;
+    std::vector<Node*> netList;
+    GetTestCase4NetList(netList);
+    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPG_UTL.AssertEqual(correctResultVector, fullResultVector);
+}
+
+void ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch() {
+    std::vector<std::string> correctResultVector = {
+        "a SAF0, b SAF0, g SAF0:{abcdef}={110000},{k}={0}",
+        "a SAF1:{abcdef}={010000},{k}={1}", 
+        "b SAF1:{abcdef}={100000},{k}={1}",
+        "c SAF0:{abcdef}={0X1000},{k}={0}",
+        "c SAF1, d SAF1, g SAF1, h SAF1, j SAF1:{abcdef}={0X0000},{k}={1}",
+        "d SAF0:{abcdef}={0X0100},{k}={0}",
+        "e SAF0:{abcdef}={11XX10},{k}={1}",
+        "e SAF1, f SAF1, i SAF0, j SAF0, k SAF1:{abcdef}={11XX00},{k}={0}",
+        "f SAF0:{abcdef}={11XX01},{k}={1}",
+        "h SAF0:{abcdef}={0X1X00},{k}={0}",
+        "i SAF1:{abcdef}={11XX1X},{k}={1}",
+        "k SAF0:{abcdef}={0X00XX},{k}={1}",
+    };
+    std::vector<std::string> fullResultVector, minimizedResultVector;
+    std::vector<Node*> netList;
+    GetTestCase4NetList(netList);
     ATPGEntry(netList, fullResultVector, minimizedResultVector);
     ATPG_UTL.AssertEqual(correctResultVector, minimizedResultVector);
 }
@@ -1654,4 +1770,44 @@ void GetATPGTestCase2NetList(std::vector<ATPGGate*> &ATPGGateList, std::vector<A
     Gate *g3 = new Gate(NAND, {w5, w6, w7}, w8);
     std::vector<Node*> netList = {w0, w1, w2, w3, w4, w5, w6, w7, w8, g0, g1, g2, g3};
     ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
+}
+
+void GetTestCase3NetList(std::vector<Node*> &netList) {
+    Wire *a = new Wire("a");
+    Wire *b = new Wire("b");
+    Wire *c = new Wire("c");
+    Wire *d = new Wire("d");
+    Wire *e = new Wire("e");
+    Wire *f = new Wire("f");
+    Wire *g = new Wire("g");
+    Wire *h = new Wire("h");
+    Wire *i = new Wire("i");
+    Wire *j = new Wire("j");
+    Wire *k = new Wire("k");
+    Gate *g0 = new Gate(NAND, {a, b}, g);
+    Gate *g1 = new Gate(OR, {c, d}, h);
+    Gate *g2 = new Gate(NOR, {e, f}, i);
+    Gate *g3 = new Gate(NOR, {g, h}, j);
+    Gate *g4 = new Gate(AND, {j, i}, k);
+    netList = {a, b, c, d, e, f, g, h, i, j, k, g0, g1, g2, g3, g4};
+}
+
+void GetTestCase4NetList(std::vector<Node*> &netList) {
+    Wire *a = new Wire("a");
+    Wire *b = new Wire("b");
+    Wire *c = new Wire("c");
+    Wire *d = new Wire("d");
+    Wire *e = new Wire("e");
+    Wire *f = new Wire("f");
+    Wire *g = new Wire("g");
+    Wire *h = new Wire("h");
+    Wire *i = new Wire("i");
+    Wire *j = new Wire("j");
+    Wire *k = new Wire("k");
+    Gate *g0 = new Gate(AND, {a, b}, g);
+    Gate *g1 = new Gate(OR, {c, d}, h);
+    Gate *g2 = new Gate(NOR, {e, f}, i);
+    Gate *g3 = new Gate(OR, {g, h}, j);
+    Gate *g4 = new Gate(NAND, {j, i}, k);
+    netList = {a, b, c, d, e, f, g, h, i, j, k, g0, g1, g2, g3, g4};
 }

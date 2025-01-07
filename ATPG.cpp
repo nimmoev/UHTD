@@ -281,30 +281,18 @@ int ATPGCase(ATPGWire* wire, WireState errorVal, std::vector<ATPGWire*> inputWir
     result += "{";
     for (int i = 0; i < inputWireList.size(); i++) { 
         result += inputNames.at(i);
-        if (i != inputWireList.size() - 1) {
-            result += ",";
-        }
     }
     result += "}={";
     for (int i = 0; i < inputWireList.size(); i++) { 
         result += inputStates.at(i);
-        if (i != inputWireList.size() - 1) {
-            result += ",";
-        }
     }
     result += "},{";
     for (int i = 0; i < outputWireList.size(); i++) { 
         result += outputNames.at(i);
-        if (i != outputWireList.size() - 1) {
-            result += ",";
-        }
     }
     result += "}={";
     for (int i = 0; i < outputWireList.size(); i++) { 
         result += outputStates.at(i);
-        if (i != outputWireList.size() - 1) {
-            result += ",";
-        }
     }
     result += "}";
 
