@@ -7,18 +7,67 @@
 
 #include "BasicGateLib/BasicGateLib.h"
 #include "Error.h"
+#include "UHTDClasses.h"
 
-enum WireState {WIRESTATE_OFF = 0, WIRESTATE_ON = 1, WIRESTATE_DC = 2, WIRESTATE_UNSET = 3};
 enum StuckAtFault {SAF0 = 0, SAF1 = 1};
-extern std::map<GateType, bool> GateInverted;
-extern std::map<GateType, WireState> GateControlVal;
-extern std::map<GateType, WireState> GateStateWhileControlled;
-extern std::map<StuckAtFault, WireState> StuckAtFaultWireState;
-extern std::map<WireState, WireState> WireStateInverted;
-extern std::map<WireState, std::string> WireStateString;
 
-class ATPGGate;
-class ATPGWire;
+// Returns a bool representing if a Gate will invert the output
+const std::map<GateType, bool> GateInverted = {
+    {INV, false},
+    {AND, false},
+    {OR, false},
+    {NAND, true},
+    {NOR, true},
+    {XOR, false},
+    {XNOR, true},
+    {UNDEF, false},
+};
+
+// Returns a WireState representing the value that will control a Gates output
+const std::map<GateType, WireState> GateControlVal = { 
+    {INV, WIRESTATE_UNSET},
+    {AND, WIRESTATE_OFF},
+    {OR, WIRESTATE_ON},
+    {NAND, WIRESTATE_OFF},
+    {NOR, WIRESTATE_ON},
+    {XOR, WIRESTATE_UNSET},
+    {XNOR, WIRESTATE_UNSET},
+    {UNDEF, WIRESTATE_UNSET},
+};
+
+// Returns a WireState representing the WireState of the Gate while the Gate is controlled
+const std::map<GateType, WireState> GateStateWhileControlled = {
+    {INV, WIRESTATE_UNSET},
+    {AND, WIRESTATE_OFF},
+    {OR, WIRESTATE_ON},
+    {NAND, WIRESTATE_ON},
+    {NOR, WIRESTATE_OFF},
+    {XOR, WIRESTATE_UNSET},
+    {XNOR, WIRESTATE_UNSET},
+    {UNDEF, WIRESTATE_UNSET},
+};
+
+// Returns a WireState representing the given StuckAtFault
+const std::map<StuckAtFault, WireState> StuckAtFaultWireState = {
+    {SAF0, WIRESTATE_ON},
+    {SAF1, WIRESTATE_OFF},
+};
+
+// Returns a WireState representing the inverted WireState
+const std::map<WireState, WireState> WireStateInverted = {
+    {WIRESTATE_OFF, WIRESTATE_ON},
+    {WIRESTATE_ON, WIRESTATE_OFF},
+    {WIRESTATE_DC, WIRESTATE_DC},
+    {WIRESTATE_UNSET, WIRESTATE_UNSET},
+};
+
+// Returns a String representing the WireState
+const std::map<WireState, std::string> WireStateString = {
+    {WIRESTATE_OFF, "0"},
+    {WIRESTATE_ON, "1"},
+    {WIRESTATE_DC, "X"},
+    {WIRESTATE_UNSET, "F"},
+};
 
 int ATPGEntry(std::vector<Node*> netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector);
 int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
@@ -29,125 +78,6 @@ int Justify(ATPGWire* wire, WireState errorVal);
 int Propogate(ATPGWire* wire);
 void ATPGResult(int error, std::vector<std::string> fullResultVector, std::vector<std::string> minimizedResultVector);
 
-class ATPGGate { 
-protected:
-    Gate* gate;
-    std::vector<ATPGWire*> ATPGInputs;
-    ATPGWire* ATPGOutput;
-
-public:
-    ATPGGate(Gate* gate) {
-        this->gate = gate;
-        this->ATPGInputs.clear();
-        this->ATPGOutput = nullptr;
-    }
-    // Return the Gate used to instantiate this object
-    Gate* GetGate() { 
-        return this->gate;
-    }
-    // Return the unique integer ID assigned to this object
-    int GetID() { 
-        if (this->gate == nullptr) {
-            return -1;
-        }
-        return this->gate->GetID();
-    }
-    // Return an integer representing the GateType of the ATPGGate
-    GateType GetGateType() { 
-        return this->gate->GetGateType();
-    }
-    // Return a copy of all input ATPGWires in the ATPGGate
-    std::vector<ATPGWire*> GetInputs() { 
-        return this->ATPGInputs;
-    }
-    // Return an address of the output ATPGWire in the Gate
-    ATPGWire* GetOutput() { 
-        return this->ATPGOutput;
-    }
-    // Append an input ATPGWire to this ATPGGate's input vector.
-    inline bool _ConnectInput(ATPGWire* input) {
-        // Will probably be done prior, but here for safety reasons
-        if (input == nullptr) {
-            return false;
-        }
-        this->ATPGInputs.push_back(input);
-        return true;
-    }
-
-    // Set this ATPGGate's output to an input ATPGWire.
-    inline bool _ConnectOutput(ATPGWire* output) { 
-        // Will probably be done prior, but here for safety reasons
-        if (output == nullptr) { 
-            return false;
-        }
-        this->ATPGOutput = output;
-        return true;
-    }
-    
-};
-
-class ATPGWire { 
-protected:
-    WireState wireState;
-    Wire* wire;
-    std::vector<ATPGGate*> ATPGInputs;
-    std::vector<ATPGGate*> ATPGOutputs;
-
-public:
-    ATPGWire(Wire* wire) { 
-        this->wireState = WIRESTATE_UNSET;
-        this->wire = wire;
-        this->ATPGInputs.clear();
-        this->ATPGOutputs.clear();
-    }
-    // Return the Wire used to instantiate this object
-    Wire* GetWire() { 
-        return this->wire;
-    }
-    // Return the unique integer ID assigned to this object
-    int GetID() { 
-        if (this->wire == nullptr) {
-            return -1;
-        }
-        return this->wire->GetID();
-    }
-    // Return a copy of all input ATPGGate in the ATPGWire
-    std::vector<ATPGGate*> GetInputs() { 
-        return this->ATPGInputs;
-    }
-    // Return a copy of all output ATPGGate in the ATPGWire
-    std::vector<ATPGGate*> GetOutputs() { 
-        return this->ATPGOutputs;
-    }
-    // Append an input Gate to this Wire's input vector. 
-    inline bool _ConnectInput(ATPGGate* input) {
-        // Will probably be done prior, but here for safety reasons
-        if (input == nullptr) { 
-            return false;
-        }
-        this->ATPGInputs.push_back(input);
-        return true;
-    }
-
-    // Append an output Gate to this Wire's output vector.
-    inline bool _ConnectOutput(ATPGGate* output) { 
-        // Will probably be done prior, but here for safety reasons
-        if (output == nullptr) { 
-            return false;
-        }
-        this->ATPGOutputs.push_back(output);
-        return true;
-    }
-    WireState GetState() { 
-        return this->wireState;
-    }
-    void SetState(WireState wireState) { 
-        this->wireState = wireState;
-    }
-};
-
-std::vector<int> GetIDList(std::vector<ATPGGate*> netList);
-std::vector<int> GetIDList(std::vector<ATPGWire*> netList);
 ATPGGate* GetATPGGateFromMap(std::map<int, ATPGGate*> gateMap, int id);
 ATPGWire* GetATPGWireFromMap(std::map<int, ATPGWire*> wireMap, int id);
 
