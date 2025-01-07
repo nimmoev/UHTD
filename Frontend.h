@@ -8,7 +8,7 @@
 
 enum tool {IMPORT = 1, ATPG = 2, COTD = 3, QUIT = 4};
 
-extern std::vector<std::string> toolPrompts;
+extern const std::vector<std::string> g_Frontend_ToolPrompts;
 
 std::string GetInput();
 int ParseStrToRangedNum(std::string input, int max, int *result);

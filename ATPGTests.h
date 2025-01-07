@@ -10,12 +10,11 @@
 // To add a new test, follow these instructions:
 //  1. Declare a parameter-less function of type void in header file
 //  2. Define a parameter-less function of type void in source file
-//  3. Append the test function to TVTestFunctionVector in source file
-//  4. Append a string of the same name as the test function to TVTestNameVector in source file
+//  3. Append the test function to ATPG_UnitTests in source file as a UnitTest
 
-extern std::vector<void (*)()> ATPGTestFunctionVector;
-extern std::vector<std::string> ATPGTestNameVector;
+extern std::vector<UnitTest> ATPG_UnitTests;
 extern UnitTestList ATPG_UTL;
+
 void ATPGTransferNetList_ShouldSucceed();
 void ATPGTransferNetList_WireListShouldMatch();
 void ATPGTransferNetList_InputWireListShouldMatch();

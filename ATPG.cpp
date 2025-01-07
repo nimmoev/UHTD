@@ -171,7 +171,7 @@ void ATPGClearWireState(ATPGWire* wire) {
     }
 }
 
-// Delete all ATPG objects allocated onto the heap by ATPGTransferNetList
+// Delete all ATPGGates and ATPGWires in an ATPG NetList
 void ATPGCleanupNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<Node*> *originalNetList) {
     for (ATPGGate* gate : gateList) { 
         delete gate;

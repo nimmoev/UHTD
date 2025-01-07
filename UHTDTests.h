@@ -7,17 +7,15 @@
 #include "Error.h"
 #include "Frontend.h"
 
-int main();
-
 // To add a new test, follow these instructions:
 //  1. Declare a parameter-less function of type void in header file
 //  2. Define a parameter-less function of type void in source file
-//  3. Append the test function to UHTDTestFunctionVector in source file
-//  4. Append a string of the same name as the test function to UHTDTestNameVector in source file
+//  3. Append the test function to UHTD_UnitTests in source file as a UnitTest
 
-extern std::vector<void (*)()> UHTDTestFunctionVector;
-extern std::vector<std::string> UHTDTestNameVector;
+extern const std::vector<UnitTest> UHTD_UnitTests;
 extern UnitTestList UHTD_UTL;
+
+int main();
 
 void Frontend_ChoiceIsEmpty_ShouldFail();
 void Frontend_ChoiceHasChar_ShouldFail();
