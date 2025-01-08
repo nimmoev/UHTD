@@ -1,11 +1,10 @@
 #include "ATPG.h"
 
 int ATPGEntry(std::vector<Node*> netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector) {
-    int result = ERROR_NONE;
-    std::string resultStr;
+    int result = ERROR_NONE, i, j;
+    std::string resultStr, tempTag;
     std::vector<ATPGGate*> gateList;
     std::vector<ATPGWire*> wireList, inputWireList, outputWireList;
-    std::string tempTag = "";
     std::map<std::string, bool> usedTags;
     std::vector<std::string> tagVector, resultVector;
     if (netList.empty()) { 
@@ -18,31 +17,31 @@ int ATPGEntry(std::vector<Node*> netList, std::vector<std::string> &fullResultVe
     }
 
     // For each ATPGWire in the WireList, we need to calculate TVs to propogate the Stuck At Fault of that ATPGWire to the output
-    for (int i = 0; i < wireList.size(); i++) {
-        for (int safCtr = 0; safCtr < 2; safCtr++) { 
-            result = ATPGCase(wireList.at(i), StuckAtFaultWireState.at(static_cast<StuckAtFault>(safCtr)), inputWireList, outputWireList, resultStr);
+    for (i = 0; i < wireList.size(); i++) {
+        for (j = 0; j < 2; j++) { 
+            result = ATPGCase(wireList.at(i), StuckAtFaultWireState.at(static_cast<StuckAtFault>(j)), inputWireList, outputWireList, resultStr);
             if (result != ERROR_NONE) { 
                 return result;
             }
-            tagVector.push_back(wireList.at(i)->GetWire()->GetName() + " SAF" + std::to_string(safCtr));
+            tagVector.push_back(wireList.at(i)->GetWire()->GetName() + " SAF" + std::to_string(j));
             resultVector.push_back(resultStr);
             resultStr = "";
         }
     }
 
     // Parse our tagVector and resultVector into the fullResultVector
-    for (int i = 0; i < tagVector.size(); i++) {
+    for (i = 0; i < tagVector.size(); i++) {
         fullResultVector.push_back(tagVector.at(i) + ":" + resultVector.at(i));
     }
 
     // Parse our tagVector and resultVector into the minimizedResultVector
-    for (int i = 0; i < tagVector.size(); i++) { 
+    for (i = 0; i < tagVector.size(); i++) { 
         if (usedTags.find(tagVector.at(i)) != usedTags.end()) { 
             continue;
         }
         tempTag = tagVector.at(i);
         // If our tag has not been used, then we need to find all matches to this tag and add them to our tempTags
-        for (int j = 0; j < tagVector.size(); j++) {
+        for (j = 0; j < tagVector.size(); j++) {
             if (i == j) {
                 continue;
             }
@@ -60,7 +59,7 @@ int ATPGEntry(std::vector<Node*> netList, std::vector<std::string> &fullResultVe
 
 // Parse existing NetList into various GateLists and WireLists used by the ATPG tool
 int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList) {
-    int error = ERROR_NONE;
+    int error = ERROR_NONE, i, j;
     Gate* gate;
     Wire* wire;
     ATPGGate* newGate;
@@ -73,10 +72,10 @@ int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gate
     }
     
     // Instantiate ATPGGates and ATPGWires per each Gate and Wire
-    for (int i = 0; i < netList.size(); i++) { 
+    for (i = 0; i < netList.size(); i++) { 
         gate = dynamic_cast<Gate*>(netList.at(i));
         if (gate != nullptr) {
-            if (gate->GetGateType() == XOR || gate->GetGateType() == XNOR || gate->GetGateType() == UNDEF) { 
+            if (gate->GetGateType() == GATETYPE_XOR || gate->GetGateType() == GATETYPE_XNOR || gate->GetGateType() == GATETYPE_UNDEF) { 
                 return ERROR_GATETYPE_INVALID_TYPE;
             }
             newGate = new ATPGGate(gate);
@@ -104,7 +103,7 @@ int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gate
     }
 
     // Link each new ATPGGate and ATPGWire to their respective inputs and outputs corresponding to the original Gates and Wires
-    for (int i = 0; i < netList.size(); i++) { 
+    for (i = 0; i < netList.size(); i++) { 
         // For each original Gate, link the corresponding input and output ATPGWires to the corresponding ATPGGate
         gate = dynamic_cast<Gate*>(netList.at(i));
         if (gate != nullptr) {
@@ -113,7 +112,7 @@ int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gate
                 continue;
             }
 
-            for (int j = 0; j < gate->GetInputs().size(); j++) { 
+            for (j = 0; j < gate->GetInputs().size(); j++) { 
                 newWire = GetATPGWireFromMap(wireMap, gate->GetInputs().at(j)->GetID());
                 if (newWire == nullptr) { 
                     continue;
@@ -131,13 +130,12 @@ int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gate
         // For each original Wire, link the corresponding input and output ATPGGates to the corresponding ATPGWire
         wire = dynamic_cast<Wire*>(netList.at(i));
         if (wire != nullptr) { 
-
             newWire = GetATPGWireFromMap(wireMap, wire->GetID());
             if (newWire == nullptr) { 
                 continue;
             }
             
-            for (int j = 0; j < wire->GetInputs().size(); j++) { 
+            for (j = 0; j < wire->GetInputs().size(); j++) { 
                 newGate = GetATPGGateFromMap(gateMap, wire->GetInputs().at(j)->GetID());
                 if (newGate == nullptr) { 
                     continue;
@@ -145,7 +143,7 @@ int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gate
                 newWire->ConnectInput(newGate);
             }
 
-            for (int j = 0; j < wire->GetOutputs().size(); j++) { 
+            for (j = 0; j < wire->GetOutputs().size(); j++) { 
                 newGate = GetATPGGateFromMap(gateMap, wire->GetOutputs().at(j)->GetID());
                 if (newGate == nullptr) { 
                     continue;
@@ -159,14 +157,15 @@ int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gate
 
 // Clear the wire's WireState and recursively clear all outputs of this wire
 void ATPGClearWireState(ATPGWire* wire) {
+    int i;
     if (wire == nullptr) { 
         return;
     }
-    if (wire->GetState() == WIRESTATE_UNSET) { 
+    if (wire->GetState() == WIRESTATE_UNDEF) { 
         return;
     }
-    wire->SetState(WIRESTATE_UNSET);
-    for (int i = 0; i < wire->GetOutputs().size(); i++) { 
+    wire->SetState(WIRESTATE_UNDEF);
+    for (i = 0; i < wire->GetOutputs().size(); i++) { 
         ATPGClearWireState(wire->GetOutputs().at(i)->GetOutput());
     }
 }
@@ -189,14 +188,9 @@ void ATPGCleanupNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*>
     return;
 }
 
-// Generate a Test Vector given a Wire and an error value
-//  wire - Pointer to the Wire to use
-//  errorVal - the value that the Stuck-At-Fault Wire cannot be
-//  inputWireList - First WireList used to output to user
-//  outputWireList - Second WireList used to output to user
-//  result - Address to output message to user
+// Generate a Test Vector given a Wire and an error value. Write out to result the states of inputWireList and outputWireList
 int ATPGCase(ATPGWire* wire, WireState errorVal, std::vector<ATPGWire*> inputWireList, std::vector<ATPGWire*> outputWireList, std::string &result) {
-    int error = ERROR_NONE;
+    int error = ERROR_NONE, i;
     std::vector<std::string> inputNames;
     std::vector<std::string> inputStates;
     std::vector<std::string> outputNames;
@@ -213,36 +207,36 @@ int ATPGCase(ATPGWire* wire, WireState errorVal, std::vector<ATPGWire*> inputWir
     }
 
     // Loop through the results and write to our buffers
-    for (int i = 0; i < inputWireList.size(); i++) { 
+    for (i = 0; i < inputWireList.size(); i++) { 
         inputNames.push_back(inputWireList.at(i)->GetWire()->GetName());
         inputStates.push_back(WireStateString.at(inputWireList.at(i)->GetState()));       
     }
-    for (int i = 0; i < outputWireList.size(); i++) { 
+    for (i = 0; i < outputWireList.size(); i++) { 
         outputNames.push_back(outputWireList.at(i)->GetWire()->GetName());
         outputStates.push_back(WireStateString.at(outputWireList.at(i)->GetState()));
     }
     
     // Create our result string
     result += "{";
-    for (int i = 0; i < inputWireList.size(); i++) { 
+    for (i = 0; i < inputWireList.size(); i++) { 
         result += inputNames.at(i);
     }
     result += "}={";
-    for (int i = 0; i < inputWireList.size(); i++) { 
+    for (i = 0; i < inputWireList.size(); i++) { 
         result += inputStates.at(i);
     }
     result += "},{";
-    for (int i = 0; i < outputWireList.size(); i++) { 
+    for (i = 0; i < outputWireList.size(); i++) { 
         result += outputNames.at(i);
     }
     result += "}={";
-    for (int i = 0; i < outputWireList.size(); i++) { 
+    for (i = 0; i < outputWireList.size(); i++) { 
         result += outputStates.at(i);
     }
     result += "}";
 
     // Reset ATPGWire states
-    for (int i = 0; i < inputWireList.size(); i++) { 
+    for (i = 0; i < inputWireList.size(); i++) { 
         ATPGClearWireState(inputWireList.at(i));
     }
     return error;
@@ -250,13 +244,13 @@ int ATPGCase(ATPGWire* wire, WireState errorVal, std::vector<ATPGWire*> inputWir
 
 // Set all inputs to wire to states that allow force the given errorVal
 int Justify(ATPGWire* wire, WireState errorVal) { 
-    int error = ERROR_NONE;
+    int error = ERROR_NONE, i, j;
     bool controlled = false;
     int controlledIdx = -1;
     if (wire == nullptr) { 
         return ERROR_WIRE_IS_NULL;
     }
-    if (wire->GetState() != WIRESTATE_UNSET && wire->GetState() != errorVal) { 
+    if (wire->GetState() != WIRESTATE_UNDEF && wire->GetState() != errorVal) { 
         return ERROR_STATE_ALREADY_SET;
     }
     // If there are no inputs, we can set the state and exit quickly
@@ -269,9 +263,9 @@ int Justify(ATPGWire* wire, WireState errorVal) {
     }
     
     // If there are inputs, we need to determine what to do based upon GateType and errorVal per input
-    for (int i = 0; i < wire->GetInputs().size(); i++) { 
+    for (i = 0; i < wire->GetInputs().size(); i++) { 
         // If the gate is an inverter, it has no control value but can still be justified by special logic
-        if (wire->GetInputs().at(i)->GetGateType() == INV) { 
+        if (wire->GetInputs().at(i)->GetGateType() == GATETYPE_INV) { 
             error = Justify(wire->GetInputs().at(i)->GetInputs().at(0), WireStateInverted.at(errorVal));
             if (error != ERROR_NONE) { 
                 return error;
@@ -279,21 +273,21 @@ int Justify(ATPGWire* wire, WireState errorVal) {
         }
         // If the current wire is WIRESTATE_DC, all inputs to the gates connected to this wire will be WIRESTATE_DC
         else if (errorVal == WIRESTATE_DC) {
-            for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
+            for (j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
                 error = Justify(wire->GetInputs().at(i)->GetInputs().at(j), WIRESTATE_DC);
             }
         }
         // If the ControlledValue is the errorVal, then we force an input to be the control value and all others as WIRESTATE_DC
         else if (GateStateWhileControlled.at(wire->GetInputs().at(i)->GetGateType()) == errorVal) { 
             // First, we need to confirm if a wire is already being controlled.
-            for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
+            for (j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
                 if (wire->GetInputs().at(i)->GetInputs().at(j)->GetState() == GateControlVal.at(wire->GetInputs().at(i)->GetGateType())) { 
                     controlled = true;
                     controlledIdx = j;
                 }
             }
             // We Justify one gate with the control value (if not already there). Then we Justify the rest with WIRESTATE_DCs
-            for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
+            for (j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
                 if (!controlled) {
                     error = Justify(wire->GetInputs().at(i)->GetInputs().at(j), GateControlVal.at(wire->GetInputs().at(i)->GetGateType()));
                     if (error != ERROR_NONE) {
@@ -316,18 +310,18 @@ int Justify(ATPGWire* wire, WireState errorVal) {
         // If the ControlledValue is opposite of the errorVal, then we force all inputs to be opposite of control value
         else { 
             // First, we need to confirm if a wire is already being controlled. If it is, then we cannot successfully Justify
-            for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) {
+            for (j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) {
                 if (wire->GetInputs().at(i)->GetInputs().at(j)->GetState() == GateControlVal.at(wire->GetInputs().at(i)->GetGateType())) {
                     return ERROR_STATE_CONTROLLED;
                 }
             }
             // If we do not return prior, then we are good to force all inputs to the opposite of control value
-            for (int j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
+            for (j = 0; j < wire->GetInputs().at(i)->GetInputs().size(); j++) { 
                 Justify(wire->GetInputs().at(i)->GetInputs().at(j), WireStateInverted.at(GateControlVal.at(wire->GetInputs().at(i)->GetGateType())));
             }
         }
     }
-    if (wire->GetState() != WIRESTATE_UNSET) {
+    if (wire->GetState() != WIRESTATE_UNDEF) {
         return ERROR_STATE_ALREADY_SET;
     }
     else if (wire->GetState() == errorVal) {
@@ -339,11 +333,11 @@ int Justify(ATPGWire* wire, WireState errorVal) {
 
 // Force the WireState of this wire to the output of the netlist, and Justify all other wires to make that possible
 int Propogate(ATPGWire* wire) { 
-    int error = ERROR_NONE;
+    int error = ERROR_NONE, i, j;
     if (wire == nullptr) { 
         return ERROR_WIRE_IS_NULL;
     }
-    if (wire->GetState() == WIRESTATE_UNSET) { 
+    if (wire->GetState() == WIRESTATE_UNDEF) { 
         return ERROR_STATE_NOT_SET;
     }
     // If there are no inputs, we can exit quickly
@@ -351,9 +345,9 @@ int Propogate(ATPGWire* wire) {
         return error;
     }
 
-    for (int i = 0; i < wire->GetOutputs().size(); i++) { 
+    for (i = 0; i < wire->GetOutputs().size(); i++) { 
         // If the gate is an inverter, it has no control value but can still be propogated by special logic
-        if (wire->GetOutputs().at(i)->GetGateType() == INV) { 
+        if (wire->GetOutputs().at(i)->GetGateType() == GATETYPE_INV) { 
             wire->GetOutputs().at(i)->GetOutput()->SetState(WireStateInverted.at(wire->GetState()));
         }
         // If the gate is not an inverter, then we can propogate the state forward and justify that backwards
@@ -367,7 +361,7 @@ int Propogate(ATPGWire* wire) {
         }
         
         // Set all other wires that are input to this wire's gate to be the non controlling value for this gate
-        for (int j = 0; j < wire->GetOutputs().at(i)->GetInputs().size(); j++) { 
+        for (j = 0; j < wire->GetOutputs().at(i)->GetInputs().size(); j++) { 
             if (wire->GetOutputs().at(i)->GetInputs().at(j)->GetID() != wire->GetID()) { 
                 error = Justify(wire->GetOutputs().at(i)->GetInputs().at(j), WireStateInverted.at(GateControlVal.at(wire->GetOutputs().at(i)->GetGateType())));
                 if (error != ERROR_NONE) { 

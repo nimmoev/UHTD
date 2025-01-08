@@ -13,38 +13,38 @@ enum StuckAtFault {SAF0 = 0, SAF1 = 1};
 
 // Returns a bool representing if a Gate will invert the output
 const std::map<GateType, bool> GateInverted = {
-    {INV, false},
-    {AND, false},
-    {OR, false},
-    {NAND, true},
-    {NOR, true},
-    {XOR, false},
-    {XNOR, true},
-    {UNDEF, false},
+    {GATETYPE_INV, false},
+    {GATETYPE_AND, false},
+    {GATETYPE_OR, false},
+    {GATETYPE_NAND, true},
+    {GATETYPE_NOR, true},
+    {GATETYPE_XOR, false},
+    {GATETYPE_XNOR, true},
+    {GATETYPE_UNDEF, false},
 };
 
 // Returns a WireState representing the value that will control a Gates output
 const std::map<GateType, WireState> GateControlVal = { 
-    {INV, WIRESTATE_UNSET},
-    {AND, WIRESTATE_OFF},
-    {OR, WIRESTATE_ON},
-    {NAND, WIRESTATE_OFF},
-    {NOR, WIRESTATE_ON},
-    {XOR, WIRESTATE_UNSET},
-    {XNOR, WIRESTATE_UNSET},
-    {UNDEF, WIRESTATE_UNSET},
+    {GATETYPE_INV, WIRESTATE_UNDEF},
+    {GATETYPE_AND, WIRESTATE_OFF},
+    {GATETYPE_OR, WIRESTATE_ON},
+    {GATETYPE_NAND, WIRESTATE_OFF},
+    {GATETYPE_NOR, WIRESTATE_ON},
+    {GATETYPE_XOR, WIRESTATE_UNDEF},
+    {GATETYPE_XNOR, WIRESTATE_UNDEF},
+    {GATETYPE_UNDEF, WIRESTATE_UNDEF},
 };
 
 // Returns a WireState representing the WireState of the Gate while the Gate is controlled
 const std::map<GateType, WireState> GateStateWhileControlled = {
-    {INV, WIRESTATE_UNSET},
-    {AND, WIRESTATE_OFF},
-    {OR, WIRESTATE_ON},
-    {NAND, WIRESTATE_ON},
-    {NOR, WIRESTATE_OFF},
-    {XOR, WIRESTATE_UNSET},
-    {XNOR, WIRESTATE_UNSET},
-    {UNDEF, WIRESTATE_UNSET},
+    {GATETYPE_INV, WIRESTATE_UNDEF},
+    {GATETYPE_AND, WIRESTATE_OFF},
+    {GATETYPE_OR, WIRESTATE_ON},
+    {GATETYPE_NAND, WIRESTATE_ON},
+    {GATETYPE_NOR, WIRESTATE_OFF},
+    {GATETYPE_XOR, WIRESTATE_UNDEF},
+    {GATETYPE_XNOR, WIRESTATE_UNDEF},
+    {GATETYPE_UNDEF, WIRESTATE_UNDEF},
 };
 
 // Returns a WireState representing the given StuckAtFault
@@ -58,7 +58,7 @@ const std::map<WireState, WireState> WireStateInverted = {
     {WIRESTATE_OFF, WIRESTATE_ON},
     {WIRESTATE_ON, WIRESTATE_OFF},
     {WIRESTATE_DC, WIRESTATE_DC},
-    {WIRESTATE_UNSET, WIRESTATE_UNSET},
+    {WIRESTATE_UNDEF, WIRESTATE_UNDEF},
 };
 
 // Returns a String representing the WireState
@@ -66,7 +66,7 @@ const std::map<WireState, std::string> WireStateString = {
     {WIRESTATE_OFF, "0"},
     {WIRESTATE_ON, "1"},
     {WIRESTATE_DC, "X"},
-    {WIRESTATE_UNSET, "F"},
+    {WIRESTATE_UNDEF, "F"},
 };
 
 int ATPGEntry(std::vector<Node*> netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector);

@@ -24,88 +24,88 @@ std::vector<UnitTest> ATPG_UnitTests = {
     UnitTest(Justify_ShouldFailNullptr, "Justify_ShouldFailNullptr"),
     UnitTest(Justify_WireHasNoInputs, "Justify_WireHasNoInputs"),
     UnitTest(Justify_ShouldFailControlled, "Justify_ShouldFailControlled"),
-    UnitTest(JustifyOFF_INVInputShouldMatch, "JustifyOFF_INVInputShouldMatch"),
-    UnitTest(JustifyOFF_INVOutputShouldMatch, "JustifyOFF_INVOutputShouldMatch"),
-    UnitTest(JustifyON_INVInputShouldMatch, "JustifyON_INVInputShouldMatch"),
-    UnitTest(JustifyON_INVOutputShouldMatch, "JustifyON_INVOutputShouldMatch"),
-    UnitTest(JustifyOFF_ANDInputAShouldMatch, "JustifyOFF_ANDInputAShouldMatch"),
-    UnitTest(JustifyOFF_ANDInputBShouldMatch, "JustifyOFF_ANDInputBShouldMatch"),
-    UnitTest(JustifyOFF_ANDOutputShouldMatch, "JustifyOFF_ANDOutputShouldMatch"),
-    UnitTest(JustifyON_ANDInputAShouldMatch, "JustifyON_ANDInputAShouldMatch"),
-    UnitTest(JustifyON_ANDInputBShouldMatch, "JustifyON_ANDInputBShouldMatch"),
-    UnitTest(JustifyON_ANDOutputShouldMatch, "JustifyON_ANDOutputShouldMatch"),
-    UnitTest(JustifyOFF_ORInputAShouldMatch, "JustifyOFF_ORInputAShouldMatch"),
-    UnitTest(JustifyOFF_ORInputBShouldMatch, "JustifyOFF_ORInputBShouldMatch"),
-    UnitTest(JustifyOFF_OROutputShouldMatch, "JustifyOFF_OROutputShouldMatch"),
-    UnitTest(JustifyON_ORInputAShouldMatch, "JustifyON_ORInputAShouldMatch"),
-    UnitTest(JustifyON_ORInputBShouldMatch, "JustifyON_ORInputBShouldMatch"),
-    UnitTest(JustifyON_OROutputShouldMatch, "JustifyON_OROutputShouldMatch"),
-    UnitTest(JustifyOFF_NANDInputAShouldMatch, "JustifyOFF_NANDInputAShouldMatch"),
-    UnitTest(JustifyOFF_NANDInputBShouldMatch, "JustifyOFF_NANDInputBShouldMatch"),
-    UnitTest(JustifyOFF_NANDOutputShouldMatch, "JustifyOFF_NANDOutputShouldMatch"),
-    UnitTest(JustifyON_NANDInputAShouldMatch, "JustifyON_NANDInputAShouldMatch"),
-    UnitTest(JustifyON_NANDInputBShouldMatch, "JustifyON_NANDInputBShouldMatch"),
-    UnitTest(JustifyON_NANDOutputShouldMatch, "JustifyON_NANDOutputShouldMatch"),
-    UnitTest(JustifyOFF_NORInputAShouldMatch, "JustifyOFF_NORInputAShouldMatch"),
-    UnitTest(JustifyOFF_NORInputBShouldMatch, "JustifyOFF_NORInputBShouldMatch"),
-    UnitTest(JustifyOFF_NOROutputShouldMatch, "JustifyOFF_NOROutputShouldMatch"),
-    UnitTest(JustifyON_NORInputAShouldMatch, "JustifyON_NORInputAShouldMatch"),
-    UnitTest(JustifyON_NORInputBShouldMatch, "JustifyON_NORInputBShouldMatch"),
-    UnitTest(JustifyON_NOROutputShouldMatch, "JustifyON_NOROutputShouldMatch"),
+    UnitTest(JustifyINV_OutputOFF_InputShouldMatch, "JustifyINV_OutputOFF_InputShouldMatch"),
+    UnitTest(JustifyINV_OutputOFF_OutputShouldMatch, "JustifyINV_OutputOFF_OutputShouldMatch"),
+    UnitTest(JustifyINV_OutputON_InputShouldMatch, "JustifyINV_OutputON_InputShouldMatch"),
+    UnitTest(JustifyINV_OutputON_OutputShouldMatch, "JustifyINV_OutputON_OutputShouldMatch"),
+    UnitTest(Justify2InputAND_OutputOFF_InputAShouldMatch, "Justify2InputAND_OutputOFF_InputAShouldMatch"),
+    UnitTest(Justify2InputAND_OutputOFF_InputBShouldMatch, "Justify2InputAND_OutputOFF_InputBShouldMatch"),
+    UnitTest(Justify2InputAND_OutputOFF_OutputShouldMatch, "Justify2InputAND_OutputOFF_OutputShouldMatch"),
+    UnitTest(Justify2InputAND_OutputON_InputAShouldMatch, "Justify2InputAND_OutputON_InputAShouldMatch"),
+    UnitTest(Justify2InputAND_OutputON_InputBShouldMatch, "Justify2InputAND_OutputON_InputBShouldMatch"),
+    UnitTest(Justify2InputAND_OutputON_OutputShouldMatch, "Justify2InputAND_OutputON_OutputShouldMatch"),
+    UnitTest(Justify2InputOR_OutputOFF_InputAShouldMatch, "Justify2InputOR_OutputOFF_InputAShouldMatch"),
+    UnitTest(Justify2InputOR_OutputOFF_InputBShouldMatch, "Justify2InputOR_OutputOFF_InputBShouldMatch"),
+    UnitTest(Justify2InputOR_OutputOFF_OutputShouldMatch, "Justify2InputOR_OutputOFF_OutputShouldMatch"),
+    UnitTest(Justify2InputOR_OutputON_InputAShouldMatch, "Justify2InputOR_OutputON_InputAShouldMatch"),
+    UnitTest(Justify2InputOR_OutputON_InputBShouldMatch, "Justify2InputOR_OutputON_InputBShouldMatch"),
+    UnitTest(Justify2InputOR_OutputON_OutputShouldMatch, "Justify2InputOR_OutputON_OutputShouldMatch"),
+    UnitTest(Justify2InputNAND_OutputOFF_InputAShouldMatch, "Justify2InputNAND_OutputOFF_InputAShouldMatch"),
+    UnitTest(Justify2InputNAND_OutputOFF_InputBShouldMatch, "Justify2InputNAND_OutputOFF_InputBShouldMatch"),
+    UnitTest(Justify2InputNAND_OutputOFF_OutputShouldMatch, "Justify2InputNAND_OutputOFF_OutputShouldMatch"),
+    UnitTest(Justify2InputNAND_OutputON_InputAShouldMatch, "Justify2InputNAND_OutputON_InputAShouldMatch"),
+    UnitTest(Justify2InputNAND_OutputON_InputBShouldMatch, "Justify2InputNAND_OutputON_InputBShouldMatch"),
+    UnitTest(Justify2InputNAND_OutputON_OutputShouldMatch, "Justify2InputNAND_OutputON_OutputShouldMatch"),
+    UnitTest(Justify2InputNOR_OutputOFF_InputAShouldMatch, "Justify2InputNOR_OutputOFF_InputAShouldMatch"),
+    UnitTest(Justify2InputNOR_OutputOFF_InputBShouldMatch, "Justify2InputNOR_OutputOFF_InputBShouldMatch"),
+    UnitTest(Justify2InputNOR_OutputOFF_OutputShouldMatch, "Justify2InputNOR_OutputOFF_OutputShouldMatch"),
+    UnitTest(Justify2InputNOR_OutputON_InputAShouldMatch, "Justify2InputNOR_OutputON_InputAShouldMatch"),
+    UnitTest(Justify2InputNOR_OutputON_InputBShouldMatch, "Justify2InputNOR_OutputON_InputBShouldMatch"),
+    UnitTest(Justify2InputNOR_OutputON_OutputShouldMatch, "Justify2InputNOR_OutputON_OutputShouldMatch"),
     UnitTest(Propogate_ShouldFailNullptr, "Propogate_ShouldFailNullptr"),
     UnitTest(Propogate_WireHasNoOutputs, "Propogate_WireHasNoOutputs"),
-    UnitTest(PropogateOFF_INVInputShouldMatch, "PropogateOFF_INVInputShouldMatch"),
-    UnitTest(PropogateOFF_INVOutputShouldMatch, "PropogateOFF_INVOutputShouldMatch"),
-    UnitTest(PropogateON_INVInputShouldMatch, "PropogateON_INVInputShouldMatch"),
-    UnitTest(PropogateON_INVOutputShouldMatch, "PropogateON_INVOutputShouldMatch"),
-    UnitTest(PropogateInputAOFF_ANDInputAShouldMatch, "PropogateInputAOFF_ANDInputAShouldMatch"),
-    UnitTest(PropogateInputAOFF_ANDInputBShouldMatch, "PropogateInputAOFF_ANDInputBShouldMatch"),
-    UnitTest(PropogateInputAOFF_ANDOutputShouldMatch, "PropogateInputAOFF_ANDOutputShouldMatch"),
-    UnitTest(PropogateInputAON_ANDInputAShouldMatch, "PropogateInputAON_ANDInputAShouldMatch"),
-    UnitTest(PropogateInputAON_ANDInputBShouldMatch, "PropogateInputAON_ANDInputBShouldMatch"),
-    UnitTest(PropogateInputAON_ANDOutputShouldMatch, "PropogateInputAON_ANDOutputShouldMatch"),
-    UnitTest(PropogateInputBOFF_ANDInputAShouldMatch, "PropogateInputBOFF_ANDInputAShouldMatch"),
-    UnitTest(PropogateInputBOFF_ANDInputBShouldMatch, "PropogateInputBOFF_ANDInputBShouldMatch"),
-    UnitTest(PropogateInputBOFF_ANDOutputShouldMatch, "PropogateInputBOFF_ANDOutputShouldMatch"),
-    UnitTest(PropogateInputBON_ANDInputAShouldMatch, "PropogateInputBON_ANDInputAShouldMatch"),
-    UnitTest(PropogateInputBON_ANDInputBShouldMatch, "PropogateInputBON_ANDInputBShouldMatch"),
-    UnitTest(PropogateInputBON_ANDOutputShouldMatch, "PropogateInputBON_ANDOutputShouldMatch"),
-    UnitTest(PropogateInputAOFF_ORInputAShouldMatch, "PropogateInputAOFF_ORInputAShouldMatch"),
-    UnitTest(PropogateInputAOFF_ORInputBShouldMatch, "PropogateInputAOFF_ORInputBShouldMatch"),
-    UnitTest(PropogateInputAOFF_OROutputShouldMatch, "PropogateInputAOFF_OROutputShouldMatch"),
-    UnitTest(PropogateInputAON_ORInputAShouldMatch, "PropogateInputAON_ORInputAShouldMatch"),
-    UnitTest(PropogateInputAON_ORInputBShouldMatch, "PropogateInputAON_ORInputBShouldMatch"),
-    UnitTest(PropogateInputAON_OROutputShouldMatch, "PropogateInputAON_OROutputShouldMatch"),
-    UnitTest(PropogateInputBOFF_ORInputAShouldMatch, "PropogateInputBOFF_ORInputAShouldMatch"),
-    UnitTest(PropogateInputBOFF_ORInputBShouldMatch, "PropogateInputBOFF_ORInputBShouldMatch"),
-    UnitTest(PropogateInputBOFF_OROutputShouldMatch, "PropogateInputBOFF_OROutputShouldMatch"),
-    UnitTest(PropogateInputBON_ORInputAShouldMatch, "PropogateInputBON_ORInputAShouldMatch"),
-    UnitTest(PropogateInputBON_ORInputBShouldMatch, "PropogateInputBON_ORInputBShouldMatch"),
-    UnitTest(PropogateInputBON_OROutputShouldMatch, "PropogateInputBON_OROutputShouldMatch"),
-    UnitTest(PropogateInputAOFF_NANDInputAShouldMatch, "PropogateInputAOFF_NANDInputAShouldMatch"),
-    UnitTest(PropogateInputAOFF_NANDInputBShouldMatch, "PropogateInputAOFF_NANDInputBShouldMatch"),
-    UnitTest(PropogateInputAOFF_NANDOutputShouldMatch, "PropogateInputAOFF_NANDOutputShouldMatch"),
-    UnitTest(PropogateInputAON_NANDInputAShouldMatch, "PropogateInputAON_NANDInputAShouldMatch"),
-    UnitTest(PropogateInputAON_NANDInputBShouldMatch, "PropogateInputAON_NANDInputBShouldMatch"),
-    UnitTest(PropogateInputAON_NANDOutputShouldMatch, "PropogateInputAON_NANDOutputShouldMatch"),
-    UnitTest(PropogateInputBOFF_NANDInputAShouldMatch, "PropogateInputBOFF_NANDInputAShouldMatch"),
-    UnitTest(PropogateInputBOFF_NANDInputBShouldMatch, "PropogateInputBOFF_NANDInputBShouldMatch"),
-    UnitTest(PropogateInputBOFF_NANDOutputShouldMatch, "PropogateInputBOFF_NANDOutputShouldMatch"),
-    UnitTest(PropogateInputBON_NANDInputAShouldMatch, "PropogateInputBON_NANDInputAShouldMatch"),
-    UnitTest(PropogateInputBON_NANDInputBShouldMatch, "PropogateInputBON_NANDInputBShouldMatch"),
-    UnitTest(PropogateInputBON_NANDOutputShouldMatch, "PropogateInputBON_NANDOutputShouldMatch"),
-    UnitTest(PropogateInputAOFF_NORInputAShouldMatch, "PropogateInputAOFF_NORInputAShouldMatch"),
-    UnitTest(PropogateInputAOFF_NORInputBShouldMatch, "PropogateInputAOFF_NORInputBShouldMatch"),
-    UnitTest(PropogateInputAOFF_NOROutputShouldMatch, "PropogateInputAOFF_NOROutputShouldMatch"),
-    UnitTest(PropogateInputAON_NORInputAShouldMatch, "PropogateInputAON_NORInputAShouldMatch"),
-    UnitTest(PropogateInputAON_NORInputBShouldMatch, "PropogateInputAON_NORInputBShouldMatch"),
-    UnitTest(PropogateInputAON_NOROutputShouldMatch, "PropogateInputAON_NOROutputShouldMatch"),
-    UnitTest(PropogateInputBOFF_NORInputAShouldMatch, "PropogateInputBOFF_NORInputAShouldMatch"),
-    UnitTest(PropogateInputBOFF_NORInputBShouldMatch, "PropogateInputBOFF_NORInputBShouldMatch"),
-    UnitTest(PropogateInputBOFF_NOROutputShouldMatch, "PropogateInputBOFF_NOROutputShouldMatch"),
-    UnitTest(PropogateInputBON_NORInputAShouldMatch, "PropogateInputBON_NORInputAShouldMatch"),
-    UnitTest(PropogateInputBON_NORInputBShouldMatch, "PropogateInputBON_NORInputBShouldMatch"),
-    UnitTest(PropogateInputBON_NOROutputShouldMatch, "PropogateInputBON_NOROutputShouldMatch"),
+    UnitTest(PropogateINV_InputOFF_InputShouldMatch, "PropogateINV_InputOFF_InputShouldMatch"),
+    UnitTest(PropogateINV_InputOFF_OutputShouldMatch, "PropogateINV_InputOFF_OutputShouldMatch"),
+    UnitTest(PropogateINV_InputON_InputShouldMatch, "PropogateINV_InputON_InputShouldMatch"),
+    UnitTest(PropogateINV_InputON_OutputShouldMatch, "PropogateINV_InputON_OutputShouldMatch"),
+    UnitTest(Propogate2InputAND_InputAOFF_InputAShouldMatch, "Propogate2InputAND_InputAOFF_InputAShouldMatch"),
+    UnitTest(Propogate2InputAND_InputAOFF_InputBShouldMatch, "Propogate2InputAND_InputAOFF_InputBShouldMatch"),
+    UnitTest(Propogate2InputAND_InputAOFF_OutputShouldMatch, "Propogate2InputAND_InputAOFF_OutputShouldMatch"),
+    UnitTest(Propogate2InputAND_InputAON_InputAShouldMatch, "Propogate2InputAND_InputAON_InputAShouldMatch"),
+    UnitTest(Propogate2InputAND_InputAON_InputBShouldMatch, "Propogate2InputAND_InputAON_InputBShouldMatch"),
+    UnitTest(Propogate2InputAND_InputAON_OutputShouldMatch, "Propogate2InputAND_InputAON_OutputShouldMatch"),
+    UnitTest(Propogate2InputAND_InputBOFF_InputAShouldMatch, "Propogate2InputAND_InputBOFF_InputAShouldMatch"),
+    UnitTest(Propogate2InputAND_InputBOFF_InputBShouldMatch, "Propogate2InputAND_InputBOFF_InputBShouldMatch"),
+    UnitTest(Propogate2InputAND_InputBOFF_OutputShouldMatch, "Propogate2InputAND_InputBOFF_OutputShouldMatch"),
+    UnitTest(Propogate2InputAND_InputBON_InputAShouldMatch, "Propogate2InputAND_InputBON_InputAShouldMatch"),
+    UnitTest(Propogate2InputAND_InputBON_InputBShouldMatch, "Propogate2InputAND_InputBON_InputBShouldMatch"),
+    UnitTest(Propogate2InputAND_InputBON_OutputShouldMatch, "Propogate2InputAND_InputBON_OutputShouldMatch"),
+    UnitTest(Propogate2InputOR_InputAOFF_InputAShouldMatch, "Propogate2InputOR_InputAOFF_InputAShouldMatch"),
+    UnitTest(Propogate2InputOR_InputAOFF_InputBShouldMatch, "Propogate2InputOR_InputAOFF_InputBShouldMatch"),
+    UnitTest(Propogate2InputOR_InputAOFF_OutputShouldMatch, "Propogate2InputOR_InputAOFF_OutputShouldMatch"),
+    UnitTest(Propogate2InputOR_InputAON_InputAShouldMatch, "Propogate2InputOR_InputAON_InputAShouldMatch"),
+    UnitTest(Propogate2InputOR_InputAON_InputBShouldMatch, "Propogate2InputOR_InputAON_InputBShouldMatch"),
+    UnitTest(Propogate2InputOR_InputAON_OutputShouldMatch, "Propogate2InputOR_InputAON_OutputShouldMatch"),
+    UnitTest(Propogate2InputOR_InputBOFF_InputAShouldMatch, "Propogate2InputOR_InputBOFF_InputAShouldMatch"),
+    UnitTest(Propogate2InputOR_InputBOFF_InputBShouldMatch, "Propogate2InputOR_InputBOFF_InputBShouldMatch"),
+    UnitTest(Propogate2InputOR_InputBOFF_OutputShouldMatch, "Propogate2InputOR_InputBOFF_OutputShouldMatch"),
+    UnitTest(Propogate2InputOR_InputBON_InputAShouldMatch, "Propogate2InputOR_InputBON_InputAShouldMatch"),
+    UnitTest(Propogate2InputOR_InputBON_InputBShouldMatch, "Propogate2InputOR_InputBON_InputBShouldMatch"),
+    UnitTest(Propogate2InputOR_InputBON_OutputShouldMatch, "Propogate2InputOR_InputBON_OutputShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputAOFF_InputAShouldMatch, "Propogate2InputNAND_InputAOFF_InputAShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputAOFF_InputBShouldMatch, "Propogate2InputNAND_InputAOFF_InputBShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputAOFF_OutputShouldMatch, "Propogate2InputNAND_InputAOFF_OutputShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputAON_InputAShouldMatch, "Propogate2InputNAND_InputAON_InputAShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputAON_InputBShouldMatch, "Propogate2InputNAND_InputAON_InputBShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputAON_OutputShouldMatch, "Propogate2InputNAND_InputAON_OutputShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputBOFF_InputAShouldMatch, "Propogate2InputNAND_InputBOFF_InputAShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputBOFF_InputBShouldMatch, "Propogate2InputNAND_InputBOFF_InputBShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputBOFF_OutputShouldMatch, "Propogate2InputNAND_InputBOFF_OutputShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputBON_InputAShouldMatch, "Propogate2InputNAND_InputBON_InputAShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputBON_InputBShouldMatch, "Propogate2InputNAND_InputBON_InputBShouldMatch"),
+    UnitTest(Propogate2InputNAND_InputBON_OutputShouldMatch, "Propogate2InputNAND_InputBON_OutputShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputAOFF_InputAShouldMatch, "Propogate2InputNOR_InputAOFF_InputAShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputAOFF_InputBShouldMatch, "Propogate2InputNOR_InputAOFF_InputBShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputAOFF_OutputShouldMatch, "Propogate2InputNOR_InputAOFF_OutputShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputAON_InputAShouldMatch, "Propogate2InputNOR_InputAON_InputAShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputAON_InputBShouldMatch, "Propogate2InputNOR_InputAON_InputBShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputAON_OutputShouldMatch, "Propogate2InputNOR_InputAON_OutputShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputBOFF_InputAShouldMatch, "Propogate2InputNOR_InputBOFF_InputAShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputBOFF_InputBShouldMatch, "Propogate2InputNOR_InputBOFF_InputBShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputBOFF_OutputShouldMatch, "Propogate2InputNOR_InputBOFF_OutputShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputBON_InputAShouldMatch, "Propogate2InputNOR_InputBON_InputAShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputBON_InputBShouldMatch, "Propogate2InputNOR_InputBON_InputBShouldMatch"),
+    UnitTest(Propogate2InputNOR_InputBON_OutputShouldMatch, "Propogate2InputNOR_InputBON_OutputShouldMatch"),
     UnitTest(ATPGCase_TestCase1, "ATPGCase_TestCase1"),
     UnitTest(ATPGCase_TestCase2ASA0, "ATPGCase_TestCase2ASA0"),
     UnitTest(ATPGCase_TestCase2ASA1, "ATPGCase_TestCase2ASA1"),
@@ -138,9 +138,9 @@ UnitTestList ATPG_UTL("ATPG Unit Tests", ATPG_UnitTests);
 void ATPGTransferNetList_ShouldSucceed() {
     int res = ERROR_NONE;
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -151,9 +151,9 @@ void ATPGTransferNetList_ShouldSucceed() {
 
 void ATPGTransferNetList_WireListShouldMatch() {
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -164,9 +164,9 @@ void ATPGTransferNetList_WireListShouldMatch() {
 
 void ATPGTransferNetList_GateListShouldMatch() {
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -177,9 +177,9 @@ void ATPGTransferNetList_GateListShouldMatch() {
 
 void ATPGTransferNetList_InputWireListShouldMatch() {
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -190,9 +190,9 @@ void ATPGTransferNetList_InputWireListShouldMatch() {
 
 void ATPGTransferNetList_OutputWireListShouldMatch() {
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -213,9 +213,9 @@ void ATPGTransferNetList_ShouldBeErrorNetListEmpty() {
 
 void ATPGTransferNetList_VerifyGateInputConnections() { 
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -226,9 +226,9 @@ void ATPGTransferNetList_VerifyGateInputConnections() {
 
 void ATPGTransferNetList_VerifyGateOutputConnection() { 
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -239,9 +239,9 @@ void ATPGTransferNetList_VerifyGateOutputConnection() {
 
 void ATPGTransferNetList_VerifyWireInputConnections() { 
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -252,9 +252,9 @@ void ATPGTransferNetList_VerifyWireInputConnections() {
 
 void ATPGTransferNetList_VerifyWireInputNullConnections() { 
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -265,9 +265,9 @@ void ATPGTransferNetList_VerifyWireInputNullConnections() {
 
 void ATPGTransferNetList_VerifyWireOutputConnections() { 
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -278,9 +278,9 @@ void ATPGTransferNetList_VerifyWireOutputConnections() {
 
 void ATPGTransferNetList_VerifyWireOutputNullConnections() { 
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(OR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_OR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -292,9 +292,9 @@ void ATPGTransferNetList_VerifyWireOutputNullConnections() {
 void ATPGTransferNetList_ShouldFailXOR() {
     int res = -1;
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(XOR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_XOR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -306,9 +306,9 @@ void ATPGTransferNetList_ShouldFailXOR() {
 void ATPGTransferNetList_ShouldFailXNOR() {
     int res = -1;
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(XNOR, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_XNOR, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -320,9 +320,9 @@ void ATPGTransferNetList_ShouldFailXNOR() {
 void ATPGTransferNetList_ShouldFailUNDEF() {
     int res = -1;
     Wire w0, w1, w2, w3, w4, w5;
-    Gate g0(AND, {&w0, &w1}, &w2);
-    Gate g1(INV, {&w3}, &w4);
-    Gate g2(UNDEF, {&w2, &w4}, &w5);
+    Gate g0(GATETYPE_AND, {&w0, &w1}, &w2);
+    Gate g1(GATETYPE_INV, {&w3}, &w4);
+    Gate g2(GATETYPE_UNDEF, {&w2, &w4}, &w5);
     std::vector<Node*> netList = {&w0, &w1, &w2, &w3, &w4, &w5, &g0, &g1, &g2};
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -418,7 +418,7 @@ void Justify_ShouldFailControlled() {
     ATPG_UTL.AssertEqual(res, ERROR_STATE_ALREADY_SET);
 }
 
-void JustifyOFF_INVInputShouldMatch() {
+void JustifyINV_OutputOFF_InputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -428,7 +428,7 @@ void JustifyOFF_INVInputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_INVOutputShouldMatch() {
+void JustifyINV_OutputOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -438,7 +438,7 @@ void JustifyOFF_INVOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_INVInputShouldMatch() {
+void JustifyINV_OutputON_InputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -448,7 +448,7 @@ void JustifyON_INVInputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_INVOutputShouldMatch() {
+void JustifyINV_OutputON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -458,7 +458,7 @@ void JustifyON_INVOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_ANDInputAShouldMatch() {
+void Justify2InputAND_OutputOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -472,7 +472,7 @@ void JustifyOFF_ANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_ANDInputBShouldMatch() {
+void Justify2InputAND_OutputOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -482,7 +482,7 @@ void JustifyOFF_ANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_ANDOutputShouldMatch() {
+void Justify2InputAND_OutputOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -492,7 +492,7 @@ void JustifyOFF_ANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_ANDInputAShouldMatch() {
+void Justify2InputAND_OutputON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -502,7 +502,7 @@ void JustifyON_ANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_ANDInputBShouldMatch() {
+void Justify2InputAND_OutputON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -512,7 +512,7 @@ void JustifyON_ANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_ANDOutputShouldMatch() {
+void Justify2InputAND_OutputON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -522,7 +522,7 @@ void JustifyON_ANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_ORInputAShouldMatch() {
+void Justify2InputOR_OutputOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -532,7 +532,7 @@ void JustifyOFF_ORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_ORInputBShouldMatch() {
+void Justify2InputOR_OutputOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -542,7 +542,7 @@ void JustifyOFF_ORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_OROutputShouldMatch() {
+void Justify2InputOR_OutputOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -552,7 +552,7 @@ void JustifyOFF_OROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_ORInputAShouldMatch() {
+void Justify2InputOR_OutputON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -562,7 +562,7 @@ void JustifyON_ORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_ORInputBShouldMatch() {
+void Justify2InputOR_OutputON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -572,7 +572,7 @@ void JustifyON_ORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_OROutputShouldMatch() {
+void Justify2InputOR_OutputON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -582,7 +582,7 @@ void JustifyON_OROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_NANDInputAShouldMatch() {
+void Justify2InputNAND_OutputOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -592,7 +592,7 @@ void JustifyOFF_NANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_NANDInputBShouldMatch() {
+void Justify2InputNAND_OutputOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -602,7 +602,7 @@ void JustifyOFF_NANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_NANDOutputShouldMatch() {
+void Justify2InputNAND_OutputOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -612,7 +612,7 @@ void JustifyOFF_NANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_NANDInputAShouldMatch() {
+void Justify2InputNAND_OutputON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -622,7 +622,7 @@ void JustifyON_NANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_NANDInputBShouldMatch() {
+void Justify2InputNAND_OutputON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -632,7 +632,7 @@ void JustifyON_NANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_NANDOutputShouldMatch() {
+void Justify2InputNAND_OutputON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -642,7 +642,7 @@ void JustifyON_NANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_NORInputAShouldMatch() {
+void Justify2InputNOR_OutputOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -652,7 +652,7 @@ void JustifyOFF_NORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_NORInputBShouldMatch() {
+void Justify2InputNOR_OutputOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -662,7 +662,7 @@ void JustifyOFF_NORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyOFF_NOROutputShouldMatch() {
+void Justify2InputNOR_OutputOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -672,7 +672,7 @@ void JustifyOFF_NOROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_NORInputAShouldMatch() {
+void Justify2InputNOR_OutputON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -682,7 +682,7 @@ void JustifyON_NORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_NORInputBShouldMatch() {
+void Justify2InputNOR_OutputON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -692,7 +692,7 @@ void JustifyON_NORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void JustifyON_NOROutputShouldMatch() {
+void Justify2InputNOR_OutputON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -716,7 +716,7 @@ void Propogate_WireHasNoOutputs() {
     ATPG_UTL.AssertEqual(aw0.GetState(), WIRESTATE_ON);
 }
 
-void PropogateOFF_INVInputShouldMatch() {
+void PropogateINV_InputOFF_InputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -727,7 +727,7 @@ void PropogateOFF_INVInputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateOFF_INVOutputShouldMatch() {
+void PropogateINV_InputOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -738,7 +738,7 @@ void PropogateOFF_INVOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateON_INVInputShouldMatch() {
+void PropogateINV_InputON_InputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -749,7 +749,7 @@ void PropogateON_INVInputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateON_INVOutputShouldMatch() {
+void PropogateINV_InputON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -760,7 +760,7 @@ void PropogateON_INVOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_ANDInputAShouldMatch() {
+void Propogate2InputAND_InputAOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -771,7 +771,7 @@ void PropogateInputAOFF_ANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_ANDInputBShouldMatch() {
+void Propogate2InputAND_InputAOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -783,7 +783,7 @@ void PropogateInputAOFF_ANDInputBShouldMatch() {
 
 }
 
-void PropogateInputAOFF_ANDOutputShouldMatch() {
+void Propogate2InputAND_InputAOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -794,7 +794,7 @@ void PropogateInputAOFF_ANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_ANDInputAShouldMatch() {
+void Propogate2InputAND_InputAON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -805,7 +805,7 @@ void PropogateInputAON_ANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_ANDInputBShouldMatch() {
+void Propogate2InputAND_InputAON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -816,7 +816,7 @@ void PropogateInputAON_ANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_ANDOutputShouldMatch() {
+void Propogate2InputAND_InputAON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -827,7 +827,7 @@ void PropogateInputAON_ANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_ANDInputAShouldMatch() {
+void Propogate2InputAND_InputBOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -838,7 +838,7 @@ void PropogateInputBOFF_ANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_ANDInputBShouldMatch() {
+void Propogate2InputAND_InputBOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -849,7 +849,7 @@ void PropogateInputBOFF_ANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_ANDOutputShouldMatch() {
+void Propogate2InputAND_InputBOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -860,7 +860,7 @@ void PropogateInputBOFF_ANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_ANDInputAShouldMatch() {
+void Propogate2InputAND_InputBON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -871,7 +871,7 @@ void PropogateInputBON_ANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_ANDInputBShouldMatch() {
+void Propogate2InputAND_InputBON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -882,7 +882,7 @@ void PropogateInputBON_ANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_ANDOutputShouldMatch() {
+void Propogate2InputAND_InputBON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -893,7 +893,7 @@ void PropogateInputBON_ANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_ORInputAShouldMatch() {
+void Propogate2InputOR_InputAOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -904,7 +904,7 @@ void PropogateInputAOFF_ORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_ORInputBShouldMatch() {
+void Propogate2InputOR_InputAOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -915,7 +915,7 @@ void PropogateInputAOFF_ORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_OROutputShouldMatch() {
+void Propogate2InputOR_InputAOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -926,7 +926,7 @@ void PropogateInputAOFF_OROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_ORInputAShouldMatch() {
+void Propogate2InputOR_InputAON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -937,7 +937,7 @@ void PropogateInputAON_ORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_ORInputBShouldMatch() {
+void Propogate2InputOR_InputAON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -948,7 +948,7 @@ void PropogateInputAON_ORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_OROutputShouldMatch() {
+void Propogate2InputOR_InputAON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -959,7 +959,7 @@ void PropogateInputAON_OROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_ORInputAShouldMatch() {
+void Propogate2InputOR_InputBOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -970,7 +970,7 @@ void PropogateInputBOFF_ORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_ORInputBShouldMatch() {
+void Propogate2InputOR_InputBOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -981,7 +981,7 @@ void PropogateInputBOFF_ORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_OROutputShouldMatch() {
+void Propogate2InputOR_InputBOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -992,7 +992,7 @@ void PropogateInputBOFF_OROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_ORInputAShouldMatch() {
+void Propogate2InputOR_InputBON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1003,7 +1003,7 @@ void PropogateInputBON_ORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_ORInputBShouldMatch() {
+void Propogate2InputOR_InputBON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1014,7 +1014,7 @@ void PropogateInputBON_ORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_OROutputShouldMatch() {
+void Propogate2InputOR_InputBON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1025,7 +1025,7 @@ void PropogateInputBON_OROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_NANDInputAShouldMatch() {
+void Propogate2InputNAND_InputAOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1036,7 +1036,7 @@ void PropogateInputAOFF_NANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_NANDInputBShouldMatch() {
+void Propogate2InputNAND_InputAOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1047,7 +1047,7 @@ void PropogateInputAOFF_NANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_NANDOutputShouldMatch() {
+void Propogate2InputNAND_InputAOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1058,7 +1058,7 @@ void PropogateInputAOFF_NANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_NANDInputAShouldMatch() {
+void Propogate2InputNAND_InputAON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1069,7 +1069,7 @@ void PropogateInputAON_NANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_NANDInputBShouldMatch() {
+void Propogate2InputNAND_InputAON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1080,7 +1080,7 @@ void PropogateInputAON_NANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_NANDOutputShouldMatch() {
+void Propogate2InputNAND_InputAON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1091,7 +1091,7 @@ void PropogateInputAON_NANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_NANDInputAShouldMatch() {
+void Propogate2InputNAND_InputBOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1102,7 +1102,7 @@ void PropogateInputBOFF_NANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_NANDInputBShouldMatch() {
+void Propogate2InputNAND_InputBOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1113,7 +1113,7 @@ void PropogateInputBOFF_NANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_NANDOutputShouldMatch() {
+void Propogate2InputNAND_InputBOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1124,7 +1124,7 @@ void PropogateInputBOFF_NANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_NANDInputAShouldMatch() {
+void Propogate2InputNAND_InputBON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1135,7 +1135,7 @@ void PropogateInputBON_NANDInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_NANDInputBShouldMatch() {
+void Propogate2InputNAND_InputBON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1146,7 +1146,7 @@ void PropogateInputBON_NANDInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_NANDOutputShouldMatch() {
+void Propogate2InputNAND_InputBON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1157,7 +1157,7 @@ void PropogateInputBON_NANDOutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_NORInputAShouldMatch() {
+void Propogate2InputNOR_InputAOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1168,7 +1168,7 @@ void PropogateInputAOFF_NORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_NORInputBShouldMatch() {
+void Propogate2InputNOR_InputAOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1179,7 +1179,7 @@ void PropogateInputAOFF_NORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAOFF_NOROutputShouldMatch() {
+void Propogate2InputNOR_InputAOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1190,7 +1190,7 @@ void PropogateInputAOFF_NOROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_NORInputAShouldMatch() {
+void Propogate2InputNOR_InputAON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1201,7 +1201,7 @@ void PropogateInputAON_NORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_NORInputBShouldMatch() {
+void Propogate2InputNOR_InputAON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1212,7 +1212,7 @@ void PropogateInputAON_NORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputAON_NOROutputShouldMatch() {
+void Propogate2InputNOR_InputAON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1223,7 +1223,7 @@ void PropogateInputAON_NOROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_NORInputAShouldMatch() {
+void Propogate2InputNOR_InputBOFF_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1234,7 +1234,7 @@ void PropogateInputBOFF_NORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_NORInputBShouldMatch() {
+void Propogate2InputNOR_InputBOFF_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1245,7 +1245,7 @@ void PropogateInputBOFF_NORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBOFF_NOROutputShouldMatch() {
+void Propogate2InputNOR_InputBOFF_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1256,7 +1256,7 @@ void PropogateInputBOFF_NOROutputShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_NORInputAShouldMatch() {
+void Propogate2InputNOR_InputBON_InputAShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1267,7 +1267,7 @@ void PropogateInputBON_NORInputAShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_NORInputBShouldMatch() {
+void Propogate2InputNOR_InputBON_InputBShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1278,7 +1278,7 @@ void PropogateInputBON_NORInputBShouldMatch() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void PropogateInputBON_NOROutputShouldMatch() {
+void Propogate2InputNOR_InputBON_OutputShouldMatch() {
     std::vector<Node*> netList;
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
@@ -1291,11 +1291,11 @@ void PropogateInputBON_NOROutputShouldMatch() {
 
 void ATPGCase_TestCase1() { 
     Wire a("a"), b("b"), c("c"), d("d"), e("e"), f("f"), g("g"), h("h"), i("i"), j("j");
-    Gate g0(OR, {&a, &b}, &f);
-    Gate g1(OR, {&c, &d}, &g);
-    Gate g2(INV, {&e}, &i);
-    Gate g3(AND, {&f, &g}, &h);
-    Gate g4(OR, {&h, &i}, &j);
+    Gate g0(GATETYPE_OR, {&a, &b}, &f);
+    Gate g1(GATETYPE_OR, {&c, &d}, &g);
+    Gate g2(GATETYPE_INV, {&e}, &i);
+    Gate g3(GATETYPE_AND, {&f, &g}, &h);
+    Gate g4(GATETYPE_OR, {&h, &i}, &j);
     std::string resultStr;
     std::vector<Node*> netList = {&a, &b, &c, &d, &e, &f, &g, &h, &i, &j, &g0, &g1, &g2, &g3, &g4};
     std::vector<ATPGGate*> ATPGGateList;
@@ -1669,7 +1669,7 @@ void ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch() {
 void GetATPGINVNetList(std::vector<Node*> &netList, std::vector<ATPGGate*> &ATPGGateList, std::vector<ATPGWire*> &ATPGWireList, std::vector<ATPGWire*> &ATPGInputWireList, std::vector<ATPGWire*> &ATPGOutputWireList) { 
     Wire *w0 = new Wire("Input"); 
     Wire *w1 = new Wire("Output");
-    Gate *g0 = new Gate(INV, {w0}, w1);
+    Gate *g0 = new Gate(GATETYPE_INV, {w0}, w1);
     netList = {w0, w1, g0};
     ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
 }
@@ -1678,7 +1678,7 @@ void GetATPGANDNetList(std::vector<Node*> &netList, std::vector<ATPGGate*> &ATPG
     Wire *w0 = new Wire("InputA"); 
     Wire *w1 = new Wire("InputB");
     Wire *w2 = new Wire("Output");
-    Gate *g0 = new Gate(AND, {w0, w1}, w2);
+    Gate *g0 = new Gate(GATETYPE_AND, {w0, w1}, w2);
     netList = {w0, w1, w2, g0};
     ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
 }
@@ -1687,7 +1687,7 @@ void GetATPGORNetList(std::vector<Node*> &netList, std::vector<ATPGGate*> &ATPGG
     Wire *w0 = new Wire("InputA"); 
     Wire *w1 = new Wire("InputB");
     Wire *w2 = new Wire("Output");
-    Gate *g0 = new Gate(OR, {w0, w1}, w2);
+    Gate *g0 = new Gate(GATETYPE_OR, {w0, w1}, w2);
     netList = {w0, w1, w2, g0};
     ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
 }
@@ -1696,7 +1696,7 @@ void GetATPGNANDNetList(std::vector<Node*> &netList, std::vector<ATPGGate*> &ATP
     Wire *w0 = new Wire("InputA"); 
     Wire *w1 = new Wire("InputB");
     Wire *w2 = new Wire("Output");
-    Gate *g0 = new Gate(NAND, {w0, w1}, w2);
+    Gate *g0 = new Gate(GATETYPE_NAND, {w0, w1}, w2);
     netList = {w0, w1, w2, g0};
     ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
 }
@@ -1705,7 +1705,7 @@ void GetATPGNORNetList(std::vector<Node*> &netList, std::vector<ATPGGate*> &ATPG
     Wire *w0 = new Wire("InputA"); 
     Wire *w1 = new Wire("InputB");
     Wire *w2 = new Wire("Output");
-    Gate *g0 = new Gate(NOR, {w0, w1}, w2);
+    Gate *g0 = new Gate(GATETYPE_NOR, {w0, w1}, w2);
     netList = {w0, w1, w2, g0};
     ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
 }
@@ -1720,10 +1720,10 @@ void GetTestCase2NetList(std::vector<Node*> &netList) {
     Wire *w6 = new Wire("g");
     Wire *w7 = new Wire("h");
     Wire *w8 = new Wire("i");
-    Gate *g0 = new Gate(AND, {w0, w1}, w5);
-    Gate *g1 = new Gate(AND, {w2, w3}, w6);
-    Gate *g2 = new Gate(INV, {w4}, w7);
-    Gate *g3 = new Gate(NAND, {w5, w6, w7}, w8);
+    Gate *g0 = new Gate(GATETYPE_AND, {w0, w1}, w5);
+    Gate *g1 = new Gate(GATETYPE_AND, {w2, w3}, w6);
+    Gate *g2 = new Gate(GATETYPE_INV, {w4}, w7);
+    Gate *g3 = new Gate(GATETYPE_NAND, {w5, w6, w7}, w8);
     netList = {w0, w1, w2, w3, w4, w5, w6, w7, w8, g0, g1, g2, g3};
 }
 
@@ -1737,10 +1737,10 @@ void GetATPGTestCase2NetList(std::vector<Node*> &netList, std::vector<ATPGGate*>
     Wire *w6 = new Wire("g");
     Wire *w7 = new Wire("h");
     Wire *w8 = new Wire("i");
-    Gate *g0 = new Gate(AND, {w0, w1}, w5);
-    Gate *g1 = new Gate(AND, {w2, w3}, w6);
-    Gate *g2 = new Gate(INV, {w4}, w7);
-    Gate *g3 = new Gate(NAND, {w5, w6, w7}, w8);
+    Gate *g0 = new Gate(GATETYPE_AND, {w0, w1}, w5);
+    Gate *g1 = new Gate(GATETYPE_AND, {w2, w3}, w6);
+    Gate *g2 = new Gate(GATETYPE_INV, {w4}, w7);
+    Gate *g3 = new Gate(GATETYPE_NAND, {w5, w6, w7}, w8);
     netList = {w0, w1, w2, w3, w4, w5, w6, w7, w8, g0, g1, g2, g3};
     ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
 }
@@ -1757,11 +1757,11 @@ void GetTestCase3NetList(std::vector<Node*> &netList) {
     Wire *i = new Wire("i");
     Wire *j = new Wire("j");
     Wire *k = new Wire("k");
-    Gate *g0 = new Gate(NAND, {a, b}, g);
-    Gate *g1 = new Gate(OR, {c, d}, h);
-    Gate *g2 = new Gate(NOR, {e, f}, i);
-    Gate *g3 = new Gate(NOR, {g, h}, j);
-    Gate *g4 = new Gate(AND, {j, i}, k);
+    Gate *g0 = new Gate(GATETYPE_NAND, {a, b}, g);
+    Gate *g1 = new Gate(GATETYPE_OR, {c, d}, h);
+    Gate *g2 = new Gate(GATETYPE_NOR, {e, f}, i);
+    Gate *g3 = new Gate(GATETYPE_NOR, {g, h}, j);
+    Gate *g4 = new Gate(GATETYPE_AND, {j, i}, k);
     netList = {a, b, c, d, e, f, g, h, i, j, k, g0, g1, g2, g3, g4};
 }
 
@@ -1777,10 +1777,10 @@ void GetTestCase4NetList(std::vector<Node*> &netList) {
     Wire *i = new Wire("i");
     Wire *j = new Wire("j");
     Wire *k = new Wire("k");
-    Gate *g0 = new Gate(AND, {a, b}, g);
-    Gate *g1 = new Gate(OR, {c, d}, h);
-    Gate *g2 = new Gate(NOR, {e, f}, i);
-    Gate *g3 = new Gate(OR, {g, h}, j);
-    Gate *g4 = new Gate(NAND, {j, i}, k);
+    Gate *g0 = new Gate(GATETYPE_AND, {a, b}, g);
+    Gate *g1 = new Gate(GATETYPE_OR, {c, d}, h);
+    Gate *g2 = new Gate(GATETYPE_NOR, {e, f}, i);
+    Gate *g3 = new Gate(GATETYPE_OR, {g, h}, j);
+    Gate *g4 = new Gate(GATETYPE_NAND, {j, i}, k);
     netList = {a, b, c, d, e, f, g, h, i, j, k, g0, g1, g2, g3, g4};
 }

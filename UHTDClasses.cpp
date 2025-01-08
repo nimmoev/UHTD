@@ -55,7 +55,7 @@ bool ATPGGate::ConnectOutput(ATPGWire* output) {
 }
 
 ATPGWire::ATPGWire(Wire* wire) { 
-    this->wireState = WIRESTATE_UNSET;
+    this->wireState = WIRESTATE_UNDEF;
     this->wire = wire;
     this->ATPGInputs.clear();
     this->ATPGOutputs.clear();

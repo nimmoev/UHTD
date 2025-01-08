@@ -8,7 +8,7 @@
 class ATPGGate;
 class ATPGWire;
 
-enum WireState {WIRESTATE_OFF = 0, WIRESTATE_ON = 1, WIRESTATE_DC = 2, WIRESTATE_UNSET = 3};
+enum WireState {WIRESTATE_OFF = 0, WIRESTATE_ON = 1, WIRESTATE_DC = 2, WIRESTATE_UNDEF = 3};
 
 class ATPGGate { 
 protected:
