@@ -12,7 +12,7 @@
 enum StuckAtFault {SAF0 = 0, SAF1 = 1};
 
 // Returns a bool representing if a Gate is supported in the ATPG feature
-const std::map<GateType, bool> ATPGSupportedTypes = {
+const std::map<GateType, bool> GateSupportedTypes = {
     {GATETYPE_INV, true},
     {GATETYPE_AND, true},
     {GATETYPE_OR, true},
@@ -83,17 +83,17 @@ const std::map<WireState, std::string> WireStateString = {
 
 void ATPGEntry(std::vector<Node*> netList);
 int ATPGGenerateTestVectors(std::vector<Node*> netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector);
-int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
 int ATPGCase(ATPGWire* wire, WireState wireState, std::vector<ATPGWire*> inputWireList, std::vector<ATPGWire*> outputWireList, std::string &result);
-int Justify(ATPGWire* wire, WireState wireState);
-bool JustifyEdgeCase(ATPGGate* inputGate, std::vector<ATPGWire*> inputGateVector, WireState wireState, int &error);
-bool ATPGIsGateControlled(std::vector<ATPGWire*> inputGateVector, WireState gateControlVal, int* controlledIdx);
-int Propogate(ATPGWire* wire);
-bool PropogateEdgeCase(ATPGGate* outputGate, WireState wireState, int &error);
-std::string CreateResult(std::vector<ATPGWire*> wireList);
-std::vector<std::string> CreateFullResultVector(std::vector<std::string> tagVector, std::vector<std::string> resultVector);
-std::vector<std::string> CreateMinimizedResultVector(std::vector<std::string> tagVector, std::vector<std::string> resultVector);
+int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
+int ATPGJustify(ATPGWire* wire, WireState wireState);
+bool ATPGJustifyEdgeCase(ATPGGate* inputGate, WireState wireState, int &error);
+bool ATPGDoesWireListHaveWireState(std::vector<ATPGWire*> wireVector, WireState gateControlVal, int* gateControlIdx);
+int ATPGPropogate(ATPGWire* wire);
+bool ATPGPropogateEdgeCase(ATPGGate* gate, WireState wireState, int &error);
+std::string ATPGCreateResult(std::vector<ATPGWire*> wireList);
 void ATPGClearWireState(ATPGWire* wire);
+std::vector<std::string> ATPGCreateFullResultVector(std::vector<std::string> tagVector, std::vector<std::string> resultVector);
+std::vector<std::string> ATPGCreateMinimizedResultVector(std::vector<std::string> tagVector, std::vector<std::string> resultVector);
 void ATPGCleanupNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<Node*> *originalNetList = nullptr);
 void ATPGResult(int error);
 
