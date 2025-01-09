@@ -119,12 +119,12 @@ std::vector<UnitTest> ATPG_UnitTests = {
     UnitTest(ATPGCase_TestCase2HSA1, "ATPGCase_TestCase2HSA1"),
     UnitTest(ATPGCase_TestCase2ISA0, "ATPGCase_TestCase2ISA0"),
     UnitTest(ATPGCase_TestCase2ISA1, "ATPGCase_TestCase2ISA1"),
-    UnitTest(ATPGEntry_TestCase2_FullResultVectorShouldMatch, "ATPGEntry_TestCase2_FullResultVectorShouldMatch"),
-    UnitTest(ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch, "ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch"),
-    UnitTest(ATPGEntry_TestCase3_FullResultVectorShouldMatch, "ATPGEntry_TestCase3_FullResultVectorShouldMatch"),
-    UnitTest(ATPGEntry_TestCase3_MinimizedResultVectorShouldMatch, "ATPGEntry_TestCase3_MinimizedResultVectorShouldMatch"),
-    UnitTest(ATPGEntry_TestCase4_FullResultVectorShouldMatch, "ATPGEntry_TestCase4_FullResultVectorShouldMatch"),
-    UnitTest(ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch, "ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch")
+    UnitTest(ATPGGenerateTestVectors_TestCase2_FullResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase2_FullResultVectorShouldMatch"),
+    UnitTest(ATPGGenerateTestVectors_TestCase2_MinimizedResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase2_MinimizedResultVectorShouldMatch"),
+    UnitTest(ATPGGenerateTestVectors_TestCase3_FullResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase3_FullResultVectorShouldMatch"),
+    UnitTest(ATPGGenerateTestVectors_TestCase3_MinimizedResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase3_MinimizedResultVectorShouldMatch"),
+    UnitTest(ATPGGenerateTestVectors_TestCase4_FullResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase4_FullResultVectorShouldMatch"),
+    UnitTest(ATPGGenerateTestVectors_TestCase4_MinimizedResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase4_MinimizedResultVectorShouldMatch")
 };
 
 UnitTestList ATPG_UTL("ATPG Unit Tests", ATPG_UnitTests);
@@ -1433,7 +1433,7 @@ void ATPGCase_TestCase2ISA1() {
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
-void ATPGEntry_TestCase2_FullResultVectorShouldMatch() {
+void ATPGGenerateTestVectors_TestCase2_FullResultVectorShouldMatch() {
     std::vector<std::string> correctResultVector = {
         "a SAF0:{abcde}={11110},{i}={0}",
         "a SAF1:{abcde}={01110},{i}={1}",
@@ -1457,12 +1457,12 @@ void ATPGEntry_TestCase2_FullResultVectorShouldMatch() {
     std::vector<std::string> fullResultVector, minimizedResultVector;
     std::vector<Node*> netList;
     GetTestCase2NetList(netList);
-    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPGGenerateTestVectors(netList, fullResultVector, minimizedResultVector);
     ATPG_UTL.AssertEqual(correctResultVector, fullResultVector);
     CleanupNetList(netList);
 }
 
-void ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch() {
+void ATPGGenerateTestVectors_TestCase2_MinimizedResultVectorShouldMatch() {
     std::vector<std::string> correctResultVector = {
         "a SAF0, b SAF0, c SAF0, d SAF0, e SAF1, f SAF0, g SAF0, h SAF0, i SAF1:{abcde}={11110},{i}={0}",
         "a SAF1:{abcde}={01110},{i}={1}",
@@ -1477,12 +1477,12 @@ void ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch() {
     std::vector<std::string> fullResultVector, minimizedResultVector;
     std::vector<Node*> netList;
     GetTestCase2NetList(netList);
-    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPGGenerateTestVectors(netList, fullResultVector, minimizedResultVector);
     ATPG_UTL.AssertEqual(correctResultVector, minimizedResultVector);
     CleanupNetList(netList);
 }
 
-void ATPGEntry_TestCase3_FullResultVectorShouldMatch() {
+void ATPGGenerateTestVectors_TestCase3_FullResultVectorShouldMatch() {
     std::vector<std::string> correctResultVector = {
         "a SAF0:{abcdef}={110000},{k}={1}", 
         "a SAF1:{abcdef}={010000},{k}={0}", 
@@ -1510,12 +1510,12 @@ void ATPGEntry_TestCase3_FullResultVectorShouldMatch() {
     std::vector<std::string> fullResultVector, minimizedResultVector;
     std::vector<Node*> netList;
     GetTestCase3NetList(netList);
-    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPGGenerateTestVectors(netList, fullResultVector, minimizedResultVector);
     ATPG_UTL.AssertEqual(correctResultVector, fullResultVector);
     CleanupNetList(netList);
 }
 
-void ATPGEntry_TestCase3_MinimizedResultVectorShouldMatch() {
+void ATPGGenerateTestVectors_TestCase3_MinimizedResultVectorShouldMatch() {
     std::vector<std::string> correctResultVector = {
         "a SAF0, b SAF0, c SAF1, d SAF1, e SAF1, f SAF1, g SAF1, h SAF1, i SAF0, j SAF0, k SAF0:{abcdef}={110000},{k}={1}", 
         "a SAF1:{abcdef}={010000},{k}={0}", 
@@ -1533,12 +1533,12 @@ void ATPGEntry_TestCase3_MinimizedResultVectorShouldMatch() {
     std::vector<std::string> fullResultVector, minimizedResultVector;
     std::vector<Node*> netList;
     GetTestCase3NetList(netList);
-    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPGGenerateTestVectors(netList, fullResultVector, minimizedResultVector);
     ATPG_UTL.AssertEqual(correctResultVector, minimizedResultVector);
     CleanupNetList(netList);
 }
 
-void ATPGEntry_TestCase4_FullResultVectorShouldMatch() {
+void ATPGGenerateTestVectors_TestCase4_FullResultVectorShouldMatch() {
     std::vector<std::string> correctResultVector = {
         "a SAF0:{abcdef}={110000},{k}={0}",
         "a SAF1:{abcdef}={010000},{k}={1}", 
@@ -1566,12 +1566,12 @@ void ATPGEntry_TestCase4_FullResultVectorShouldMatch() {
     std::vector<std::string> fullResultVector, minimizedResultVector;
     std::vector<Node*> netList;
     GetTestCase4NetList(netList);
-    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPGGenerateTestVectors(netList, fullResultVector, minimizedResultVector);
     ATPG_UTL.AssertEqual(correctResultVector, fullResultVector);
     CleanupNetList(netList);
 }
 
-void ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch() {
+void ATPGGenerateTestVectors_TestCase4_MinimizedResultVectorShouldMatch() {
     std::vector<std::string> correctResultVector = {
         "a SAF0, b SAF0, g SAF0:{abcdef}={110000},{k}={0}",
         "a SAF1:{abcdef}={010000},{k}={1}", 
@@ -1589,7 +1589,7 @@ void ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch() {
     std::vector<std::string> fullResultVector, minimizedResultVector;
     std::vector<Node*> netList;
     GetTestCase4NetList(netList);
-    ATPGEntry(netList, fullResultVector, minimizedResultVector);
+    ATPGGenerateTestVectors(netList, fullResultVector, minimizedResultVector);
     ATPG_UTL.AssertEqual(correctResultVector, minimizedResultVector);
     CleanupNetList(netList);
 }

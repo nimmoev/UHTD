@@ -34,7 +34,7 @@ ATPGWire* ATPGGate::GetOutput() {
     return this->ATPGOutput;
 }
 
-// Append an input ATPGWire to this ATPGGate's input vector.
+// Append an input ATPGWire to this ATPGGate's input vector
 bool ATPGGate::ConnectInput(ATPGWire* input) {
     // Will probably be done prior, but here for safety reasons
     if (input == nullptr) {
@@ -44,7 +44,7 @@ bool ATPGGate::ConnectInput(ATPGWire* input) {
     return true;
 }
 
-// Set this ATPGGate's output to an input ATPGWire.
+// Set this ATPGGate's output to an input ATPGWire
 bool ATPGGate::ConnectOutput(ATPGWire* output) { 
     // Will probably be done prior, but here for safety reasons
     if (output == nullptr) { 
@@ -107,7 +107,12 @@ bool ATPGWire::ConnectOutput(ATPGGate* output) {
 WireState ATPGWire::GetState() { 
     return this->wireState;
 }
+
+// Set this Wire's wireState
 void ATPGWire::SetState(WireState wireState) { 
+    if (this->wireState == wireState) { 
+        return;
+    }
     this->wireState = wireState;
 }
 

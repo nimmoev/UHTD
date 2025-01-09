@@ -81,11 +81,13 @@ const std::map<WireState, std::string> WireStateString = {
     {WIRESTATE_UNDEF, "F"},
 };
 
-int ATPGEntry(std::vector<Node*> netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector);
+void ATPGEntry(std::vector<Node*> netList);
+int ATPGGenerateTestVectors(std::vector<Node*> netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector);
 int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
-int ATPGCase(ATPGWire* wire, WireState errorVal, std::vector<ATPGWire*> inputWireList, std::vector<ATPGWire*> outputWireList, std::string &result);
-int Justify(ATPGWire* wire, WireState errorVal);
-bool JustifyEdgeCase(ATPGGate* inputGate, std::vector<ATPGWire*> inputGateVector, WireState errorVal, int &error);
+int ATPGCase(ATPGWire* wire, WireState wireState, std::vector<ATPGWire*> inputWireList, std::vector<ATPGWire*> outputWireList, std::string &result);
+int Justify(ATPGWire* wire, WireState wireState);
+bool JustifyEdgeCase(ATPGGate* inputGate, std::vector<ATPGWire*> inputGateVector, WireState wireState, int &error);
+bool ATPGIsGateControlled(std::vector<ATPGWire*> inputGateVector, WireState gateControlVal, int* controlledIdx);
 int Propogate(ATPGWire* wire);
 bool PropogateEdgeCase(ATPGGate* outputGate, WireState wireState, int &error);
 std::string CreateResult(std::vector<ATPGWire*> wireList);
@@ -93,6 +95,6 @@ std::vector<std::string> CreateFullResultVector(std::vector<std::string> tagVect
 std::vector<std::string> CreateMinimizedResultVector(std::vector<std::string> tagVector, std::vector<std::string> resultVector);
 void ATPGClearWireState(ATPGWire* wire);
 void ATPGCleanupNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<Node*> *originalNetList = nullptr);
-void ATPGResult(int error, std::vector<std::string> fullResultVector, std::vector<std::string> minimizedResultVector);
+void ATPGResult(int error);
 
 #endif

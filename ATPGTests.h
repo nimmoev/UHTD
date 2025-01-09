@@ -133,12 +133,12 @@ void ATPGCase_TestCase2HSA0();
 void ATPGCase_TestCase2HSA1();
 void ATPGCase_TestCase2ISA0();
 void ATPGCase_TestCase2ISA1();
-void ATPGEntry_TestCase2_FullResultVectorShouldMatch();
-void ATPGEntry_TestCase2_MinimizedResultVectorShouldMatch();
-void ATPGEntry_TestCase3_FullResultVectorShouldMatch();
-void ATPGEntry_TestCase3_MinimizedResultVectorShouldMatch();
-void ATPGEntry_TestCase4_FullResultVectorShouldMatch();
-void ATPGEntry_TestCase4_MinimizedResultVectorShouldMatch();
+void ATPGGenerateTestVectors_TestCase2_FullResultVectorShouldMatch();
+void ATPGGenerateTestVectors_TestCase2_MinimizedResultVectorShouldMatch();
+void ATPGGenerateTestVectors_TestCase3_FullResultVectorShouldMatch();
+void ATPGGenerateTestVectors_TestCase3_MinimizedResultVectorShouldMatch();
+void ATPGGenerateTestVectors_TestCase4_FullResultVectorShouldMatch();
+void ATPGGenerateTestVectors_TestCase4_MinimizedResultVectorShouldMatch();
 
 // Functions to instantiate a specific NetList to a certain test
 
