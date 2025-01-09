@@ -11,6 +11,18 @@
 
 enum StuckAtFault {SAF0 = 0, SAF1 = 1};
 
+// Returns a bool representing if a Gate is supported in the ATPG feature
+const std::map<GateType, bool> ATPGSupportedTypes = {
+    {GATETYPE_INV, true},
+    {GATETYPE_AND, true},
+    {GATETYPE_OR, true},
+    {GATETYPE_NAND, true},
+    {GATETYPE_NOR, true},
+    {GATETYPE_XOR, false},
+    {GATETYPE_XNOR, false},
+    {GATETYPE_UNDEF, false},
+};
+
 // Returns a bool representing if a Gate will invert the output
 const std::map<GateType, bool> GateInverted = {
     {GATETYPE_INV, false},
@@ -71,14 +83,16 @@ const std::map<WireState, std::string> WireStateString = {
 
 int ATPGEntry(std::vector<Node*> netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector);
 int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
-void ATPGClearWireState(ATPGWire* wire);
-void ATPGCleanupNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<Node*> *originalNetList = nullptr);
 int ATPGCase(ATPGWire* wire, WireState errorVal, std::vector<ATPGWire*> inputWireList, std::vector<ATPGWire*> outputWireList, std::string &result);
 int Justify(ATPGWire* wire, WireState errorVal);
+bool JustifyEdgeCase(ATPGGate* inputGate, std::vector<ATPGWire*> inputGateVector, WireState errorVal, int &error);
 int Propogate(ATPGWire* wire);
+bool PropogateEdgeCase(ATPGGate* outputGate, WireState wireState, int &error);
+std::string CreateResult(std::vector<ATPGWire*> wireList);
+std::vector<std::string> CreateFullResultVector(std::vector<std::string> tagVector, std::vector<std::string> resultVector);
+std::vector<std::string> CreateMinimizedResultVector(std::vector<std::string> tagVector, std::vector<std::string> resultVector);
+void ATPGClearWireState(ATPGWire* wire);
+void ATPGCleanupNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<Node*> *originalNetList = nullptr);
 void ATPGResult(int error, std::vector<std::string> fullResultVector, std::vector<std::string> minimizedResultVector);
-
-ATPGGate* GetATPGGateFromMap(std::map<int, ATPGGate*> gateMap, int id);
-ATPGWire* GetATPGWireFromMap(std::map<int, ATPGWire*> wireMap, int id);
 
 #endif

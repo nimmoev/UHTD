@@ -15,12 +15,6 @@ std::vector<UnitTest> ATPG_UnitTests = {
     UnitTest(ATPGTransferNetList_ShouldFailXOR, "ATPGTransferNetList_ShouldFailXOR"),
     UnitTest(ATPGTransferNetList_ShouldFailXNOR, "ATPGTransferNetList_ShouldFailXNOR"),
     UnitTest(ATPGTransferNetList_ShouldFailUNDEF, "ATPGTransferNetList_ShouldFailUNDEF"),
-    UnitTest(GetATPGGateFromMap_ShouldMatch, "GetATPGGateFromMap_ShouldMatch"),
-    UnitTest(GetATPGGateFromMap_LastItemShouldMatch, "GetATPGGateFromMap_LastItemShouldMatch"),
-    UnitTest(GetATPGGateFromMap_ShouldBeNullptr, "GetATPGGateFromMap_ShouldBeNullptr"),
-    UnitTest(GetATPGWireFromMap_ShouldMatch, "GetATPGWireFromMap_ShouldMatch"),
-    UnitTest(GetATPGWireFromMap_LastItemShouldMatch, "GetATPGWireFromMap_LastItemShouldMatch"),
-    UnitTest(GetATPGWireFromMap_ShouldBeNullptr, "GetATPGWireFromMap_ShouldBeNullptr"),
     UnitTest(Justify_ShouldFailNullptr, "Justify_ShouldFailNullptr"),
     UnitTest(Justify_WireHasNoInputs, "Justify_WireHasNoInputs"),
     UnitTest(Justify_ShouldFailControlled, "Justify_ShouldFailControlled"),
@@ -329,72 +323,6 @@ void ATPGTransferNetList_ShouldFailUNDEF() {
     res = ATPGTransferNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPG_UTL.AssertEqual(res, ERROR_GATETYPE_INVALID_TYPE);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList);
-}
-
-void GetATPGGateFromMap_ShouldMatch() {
-    Gate g0, g1, g2, g3;
-    ATPGGate ag0(&g0), ag1(&g1), ag2(&g2), ag3(&g3);
-    std::map<int, ATPGGate*> gateMap;
-    gateMap.insert(std::pair<const int, ATPGGate*>(g0.GetID(), &ag0));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g1.GetID(), &ag1));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g2.GetID(), &ag2));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g3.GetID(), &ag3));
-    ATPG_UTL.AssertEqual(g2.GetID(), GetATPGGateFromMap(gateMap, g2.GetID())->GetID());
-}
-
-void GetATPGGateFromMap_LastItemShouldMatch() {
-    Gate g0, g1, g2, g3;
-    ATPGGate ag0(&g0), ag1(&g1), ag2(&g2), ag3(&g3);
-    std::map<int, ATPGGate*> gateMap;
-    gateMap.insert(std::pair<const int, ATPGGate*>(g0.GetID(), &ag0));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g1.GetID(), &ag1));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g2.GetID(), &ag2));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g3.GetID(), &ag3));
-    ATPG_UTL.AssertEqual(g3.GetID(), GetATPGGateFromMap(gateMap, g3.GetID())->GetID());
-}
-
-void GetATPGGateFromMap_ShouldBeNullptr() {
-    Gate g0, g1, g2, g3;
-    ATPGGate ag0(&g0), ag1(&g1), ag2(&g2), ag3(&g3);
-    std::map<int, ATPGGate*> gateMap;
-    gateMap.insert(std::pair<const int, ATPGGate*>(g0.GetID(), &ag0));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g1.GetID(), &ag1));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g2.GetID(), &ag2));
-    gateMap.insert(std::pair<const int, ATPGGate*>(g3.GetID(), &ag3));
-    ATPG_UTL.AssertFalse(GetATPGGateFromMap(gateMap, g3.GetID() + 8));
-}
-
-void GetATPGWireFromMap_ShouldMatch() {
-    Wire w0, w1, w2, w3;
-    ATPGWire aw0(&w0), aw1(&w1), aw2(&w2), aw3(&w3);
-    std::map<int, ATPGWire*> wireMap;
-    wireMap.insert(std::pair<const int, ATPGWire*>(w0.GetID(), &aw0));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w1.GetID(), &aw1));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w2.GetID(), &aw2));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w3.GetID(), &aw3));
-    ATPG_UTL.AssertEqual(w2.GetID(), GetATPGWireFromMap(wireMap, w2.GetID())->GetID());
-}
-
-void GetATPGWireFromMap_LastItemShouldMatch() { 
-    Wire w0, w1, w2, w3;
-    ATPGWire aw0(&w0), aw1(&w1), aw2(&w2), aw3(&w3);
-    std::map<int, ATPGWire*> wireMap;
-    wireMap.insert(std::pair<const int, ATPGWire*>(w0.GetID(), &aw0));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w1.GetID(), &aw1));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w2.GetID(), &aw2));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w3.GetID(), &aw3));
-    ATPG_UTL.AssertEqual(w3.GetID(), GetATPGWireFromMap(wireMap, w3.GetID())->GetID());
-}
-
-void GetATPGWireFromMap_ShouldBeNullptr() {
-    Wire w0, w1, w2, w3;
-    ATPGWire aw0(&w0), aw1(&w1), aw2(&w2), aw3(&w3);
-    std::map<int, ATPGWire*> wireMap;
-    wireMap.insert(std::pair<const int, ATPGWire*>(w0.GetID(), &aw0));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w1.GetID(), &aw1));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w2.GetID(), &aw2));
-    wireMap.insert(std::pair<const int, ATPGWire*>(w3.GetID(), &aw3));
-    ATPG_UTL.AssertFalse(GetATPGWireFromMap(wireMap, w3.GetID() + 8));
 }
 
 void Justify_ShouldFailNullptr() {
