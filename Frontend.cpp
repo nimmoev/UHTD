@@ -1,8 +1,8 @@
 #include "Frontend.h"
 
-std::vector<std::string> toolPrompts = {
+const std::vector<std::string> g_Frontend_ToolPrompts = {
     "Import Verilog File",
-    "Generate Test Vectors",
+    "Automatic Test Pattern Generation (ATPG)",
     "Compute Controllability-Observability Scores",
     "Quit"
 };
