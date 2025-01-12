@@ -82,18 +82,18 @@ const std::map<WireState, std::string> WireStateString = {
 };
 
 void ATPGEntry(const std::vector<Node*> &netList);
-int ATPGGenerateTestVectors(const std::vector<Node*> &netList, std::vector<std::string> &fullResultVector, std::vector<std::string> &minimizedResultVector);
+int ATPGGenerateTestVectors(const std::vector<Node*> &netList, std::vector<std::string> &fullResultList, std::vector<std::string> &minimizedResultList);
 int ATPGCase(ATPGWire* wire, WireState wireState, const std::vector<ATPGWire*> &inputWireList, const std::vector<ATPGWire*> &outputWireList, std::string &result);
 int ATPGTransferNetList(const std::vector<Node*> &netList, std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<ATPGWire*> &inputWireList, std::vector<ATPGWire*> &outputWireList);
 int ATPGJustify(ATPGWire* wire, WireState wireState);
-bool ATPGJustifyEdgeCase(GateType inputGateType, const std::vector<ATPGWire*> inputGateVector, WireState wireState, int &error);
-bool ATPGDoesWireListHaveWireState(const std::vector<ATPGWire*> &wireVector, WireState gateControlVal, int* gateControlIdx);
+bool ATPGJustifyEdgeCase(GateType gateType, const std::vector<ATPGWire*> gateInputList, WireState wireState, int &error);
+bool ATPGDoesWireListHaveWireState(const std::vector<ATPGWire*> &wireList, WireState gateControlVal, int* gateControlIdx);
 int ATPGPropogate(ATPGWire* wire);
-bool ATPGPropogateEdgeCase(ATPGGate* gate, WireState wireState, int &error);
+bool ATPGPropogateEdgeCase(GateType gateType, ATPGWire* gateOutput, WireState wireState, int &error);
 std::string ATPGCreateResult(const std::vector<ATPGWire*> &wireList);
 void ATPGClearWireState(ATPGWire* wire);
-std::vector<std::string> ATPGCreateFullResultVector(const std::vector<std::string> &tagVector, const std::vector<std::string> &resultVector);
-std::vector<std::string> ATPGCreateMinimizedResultVector(const std::vector<std::string> &tagVector, const std::vector<std::string> &resultVector);
+std::vector<std::string> ATPGCreateFullResultList(const std::vector<std::string> &tagList, const std::vector<std::string> &resultList);
+std::vector<std::string> ATPGCreateMinimizedResultList(const std::vector<std::string> &tagList, const std::vector<std::string> &resultList);
 void ATPGCleanupNetList(std::vector<ATPGGate*> &gateList, std::vector<ATPGWire*> &wireList, std::vector<Node*> *originalNetList = nullptr);
 void ATPGResult(int error);
 
