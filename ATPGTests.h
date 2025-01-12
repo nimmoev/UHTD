@@ -1,6 +1,7 @@
 #ifndef ATPGTESTS_H
 #define ATPGTESTS_H
 
+#include <string>
 #include <vector>
 
 #include "BasicGateLib/BasicTestLib/BasicTestLib.h"
@@ -12,7 +13,6 @@
 //  2. Define a parameter-less function of type void in source file
 //  3. Append the test function to ATPG_UnitTests in source file as a UnitTest
 
-extern std::vector<UnitTest> ATPG_UnitTests;
 extern UnitTestList ATPG_UTL;
 
 void ATPGTransferNetList_ShouldSucceed();

@@ -1,9 +1,9 @@
 #ifndef ATPG_H
 #define ATPG_H
 
-#include <algorithm>
 #include <map>
-#include <stack>
+#include <string>
+#include <vector>
 
 #include "BasicGateLib/BasicGateLib.h"
 #include "Error.h"

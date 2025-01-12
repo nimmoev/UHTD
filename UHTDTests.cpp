@@ -1,6 +1,6 @@
 #include "UHTDTests.h"
 
-extern const std::vector<UnitTest> UHTD_UnitTests {
+UnitTestList UHTD_UTL("UHTD Unit Tests", std::vector<UnitTest>({
     UnitTest(Frontend_ChoiceIsEmpty_ShouldFail, "Frontend_ChoiceIsEmpty_ShouldFail"),
     UnitTest(Frontend_ChoiceHasChar_ShouldFail, "Frontend_ChoiceHasChar_ShouldFail"),
     UnitTest(Frontend_ChoiceHasSymbol_ShouldFail, "Frontend_ChoiceHasSymbol_ShouldFail"),
@@ -15,9 +15,7 @@ extern const std::vector<UnitTest> UHTD_UnitTests {
     UnitTest(Frontend_ChoiceIsControllabilityObservability_ShouldBeControllabilityObservability, "Frontend_ChoiceIsControllabilityObservability_ShouldBeControllabilityObservability"),
     UnitTest(Frontend_ChoiceIsQuit_ShouldSucceed, "Frontend_ChoiceIsQuit_ShouldSucceed"),
     UnitTest(Frontend_ChoiceIsQuit_ShouldBeQuit, "Frontend_ChoiceIsQuit_ShouldBeQuit")
-};
-
-UnitTestList UHTD_UTL("UHTD Unit Tests", UHTD_UnitTests);
+}));
 
 int main() {
     BGL_UTL.RunTests();

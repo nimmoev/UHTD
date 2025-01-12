@@ -1,6 +1,6 @@
 #include "ATPGTests.h"
 
-std::vector<UnitTest> ATPG_UnitTests = {
+UnitTestList ATPG_UTL("ATPG Unit Tests", std::vector<UnitTest>({
     UnitTest(ATPGTransferNetList_ShouldSucceed, "ATPGTransferNetList_ShouldSucceed"),
     UnitTest(ATPGTransferNetList_WireListShouldMatch, "ATPGTransferNetList_WireListShouldMatch"),
     UnitTest(ATPGTransferNetList_InputWireListShouldMatch, "ATPGTransferNetList_InputWireListShouldMatch"),
@@ -125,9 +125,7 @@ std::vector<UnitTest> ATPG_UnitTests = {
     UnitTest(ATPGGenerateTestVectors_TestCase3_MinimizedResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase3_MinimizedResultVectorShouldMatch"),
     UnitTest(ATPGGenerateTestVectors_TestCase4_FullResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase4_FullResultVectorShouldMatch"),
     UnitTest(ATPGGenerateTestVectors_TestCase4_MinimizedResultVectorShouldMatch, "ATPGGenerateTestVectors_TestCase4_MinimizedResultVectorShouldMatch")
-};
-
-UnitTestList ATPG_UTL("ATPG Unit Tests", ATPG_UnitTests);
+}));
 
 void ATPGTransferNetList_ShouldSucceed() {
     int res = ERROR_NONE;
@@ -284,7 +282,7 @@ void ATPGJustify_WireHasNoInputs() {
     Wire w0;
     ATPGWire aw0(&w0);
     ATPGJustify(&aw0, WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(aw0.GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(aw0.GetWireState(), WIRESTATE_ON);
 }
 
 void ATPGJustify_ShouldFailControlled() {
@@ -302,7 +300,7 @@ void ATPGJustifyINV_OutputOFF_InputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGINVNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -312,7 +310,7 @@ void ATPGJustifyINV_OutputOFF_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGINVNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -322,7 +320,7 @@ void ATPGJustifyINV_OutputON_InputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGINVNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -332,7 +330,7 @@ void ATPGJustifyINV_OutputON_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGINVNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -342,7 +340,7 @@ void ATPGJustify2InputAND_OutputOFF_InputAShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -352,7 +350,7 @@ void ATPGJustify2InputAND_OutputOFF_InputBShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_DC);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_DC);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -362,7 +360,7 @@ void ATPGJustify2InputAND_OutputOFF_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -372,7 +370,7 @@ void ATPGJustify2InputAND_OutputON_InputAShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -382,7 +380,7 @@ void ATPGJustify2InputAND_OutputON_InputBShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -392,7 +390,7 @@ void ATPGJustify2InputAND_OutputON_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -402,7 +400,7 @@ void ATPGJustify2InputOR_OutputOFF_InputAShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -412,7 +410,7 @@ void ATPGJustify2InputOR_OutputOFF_InputBShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -422,7 +420,7 @@ void ATPGJustify2InputOR_OutputOFF_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -432,7 +430,7 @@ void ATPGJustify2InputOR_OutputON_InputAShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -442,7 +440,7 @@ void ATPGJustify2InputOR_OutputON_InputBShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_DC);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_DC);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -452,7 +450,7 @@ void ATPGJustify2InputOR_OutputON_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -462,7 +460,7 @@ void ATPGJustify2InputNAND_OutputOFF_InputAShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -472,7 +470,7 @@ void ATPGJustify2InputNAND_OutputOFF_InputBShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -482,7 +480,7 @@ void ATPGJustify2InputNAND_OutputOFF_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -492,7 +490,7 @@ void ATPGJustify2InputNAND_OutputON_InputAShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -502,7 +500,7 @@ void ATPGJustify2InputNAND_OutputON_InputBShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_DC);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_DC);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -512,7 +510,7 @@ void ATPGJustify2InputNAND_OutputON_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -522,7 +520,7 @@ void ATPGJustify2InputNOR_OutputOFF_InputAShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -532,7 +530,7 @@ void ATPGJustify2InputNOR_OutputOFF_InputBShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_DC);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_DC);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -542,7 +540,7 @@ void ATPGJustify2InputNOR_OutputOFF_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_OFF);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -552,7 +550,7 @@ void ATPGJustify2InputNOR_OutputON_InputAShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -562,7 +560,7 @@ void ATPGJustify2InputNOR_OutputON_InputBShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -572,7 +570,7 @@ void ATPGJustify2InputNOR_OutputON_OutputShouldMatch() {
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
     ATPGJustify(ATPGOutputWireList.at(0), WIRESTATE_ON);
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -585,9 +583,9 @@ void ATPGPropogate_ShouldFailNullptr() {
 void ATPGPropogate_WireHasNoOutputs() {
     Wire w0;
     ATPGWire aw0(&w0);
-    aw0.SetState(WIRESTATE_ON);
+    aw0.SetWireState(WIRESTATE_ON);
     ATPGPropogate(&aw0);
-    ATPG_UTL.AssertEqual(aw0.GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(aw0.GetWireState(), WIRESTATE_ON);
 }
 
 void ATPGPropogateINV_InputOFF_InputShouldMatch() {
@@ -595,9 +593,9 @@ void ATPGPropogateINV_InputOFF_InputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGINVNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -606,9 +604,9 @@ void ATPGPropogateINV_InputOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGINVNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -617,9 +615,9 @@ void ATPGPropogateINV_InputON_InputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGINVNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -628,9 +626,9 @@ void ATPGPropogateINV_InputON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPGINVNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -639,9 +637,9 @@ void ATPGPropogate2InputAND_InputAOFF_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -650,9 +648,9 @@ void ATPGPropogate2InputAND_InputAOFF_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 
 }
@@ -662,9 +660,9 @@ void ATPGPropogate2InputAND_InputAOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -673,9 +671,9 @@ void ATPGPropogate2InputAND_InputAON_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -684,9 +682,9 @@ void ATPGPropogate2InputAND_InputAON_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -695,9 +693,9 @@ void ATPGPropogate2InputAND_InputAON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -706,9 +704,9 @@ void ATPGPropogate2InputAND_InputBOFF_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -717,9 +715,9 @@ void ATPGPropogate2InputAND_InputBOFF_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -728,9 +726,9 @@ void ATPGPropogate2InputAND_InputBOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -739,9 +737,9 @@ void ATPGPropogate2InputAND_InputBON_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -750,9 +748,9 @@ void ATPGPropogate2InputAND_InputBON_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -761,9 +759,9 @@ void ATPGPropogate2InputAND_InputBON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -772,9 +770,9 @@ void ATPGPropogate2InputOR_InputAOFF_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -783,9 +781,9 @@ void ATPGPropogate2InputOR_InputAOFF_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -794,9 +792,9 @@ void ATPGPropogate2InputOR_InputAOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -805,9 +803,9 @@ void ATPGPropogate2InputOR_InputAON_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -816,9 +814,9 @@ void ATPGPropogate2InputOR_InputAON_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -827,9 +825,9 @@ void ATPGPropogate2InputOR_InputAON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -838,9 +836,9 @@ void ATPGPropogate2InputOR_InputBOFF_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -849,9 +847,9 @@ void ATPGPropogate2InputOR_InputBOFF_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -860,9 +858,9 @@ void ATPGPropogate2InputOR_InputBOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -871,9 +869,9 @@ void ATPGPropogate2InputOR_InputBON_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -882,9 +880,9 @@ void ATPGPropogate2InputOR_InputBON_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -893,9 +891,9 @@ void ATPGPropogate2InputOR_InputBON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -904,9 +902,9 @@ void ATPGPropogate2InputNAND_InputAOFF_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -915,9 +913,9 @@ void ATPGPropogate2InputNAND_InputAOFF_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -926,9 +924,9 @@ void ATPGPropogate2InputNAND_InputAOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -937,9 +935,9 @@ void ATPGPropogate2InputNAND_InputAON_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -948,9 +946,9 @@ void ATPGPropogate2InputNAND_InputAON_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -959,9 +957,9 @@ void ATPGPropogate2InputNAND_InputAON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -970,9 +968,9 @@ void ATPGPropogate2InputNAND_InputBOFF_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -981,9 +979,9 @@ void ATPGPropogate2InputNAND_InputBOFF_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -992,9 +990,9 @@ void ATPGPropogate2InputNAND_InputBOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1003,9 +1001,9 @@ void ATPGPropogate2InputNAND_InputBON_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1014,9 +1012,9 @@ void ATPGPropogate2InputNAND_InputBON_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1025,9 +1023,9 @@ void ATPGPropogate2InputNAND_InputBON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNANDNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1036,9 +1034,9 @@ void ATPGPropogate2InputNOR_InputAOFF_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1047,9 +1045,9 @@ void ATPGPropogate2InputNOR_InputAOFF_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1058,9 +1056,9 @@ void ATPGPropogate2InputNOR_InputAOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1069,9 +1067,9 @@ void ATPGPropogate2InputNOR_InputAON_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1080,9 +1078,9 @@ void ATPGPropogate2InputNOR_InputAON_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1091,9 +1089,9 @@ void ATPGPropogate2InputNOR_InputAON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(0)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(0)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(0));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1102,9 +1100,9 @@ void ATPGPropogate2InputNOR_InputBOFF_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1113,9 +1111,9 @@ void ATPGPropogate2InputNOR_InputBOFF_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1124,9 +1122,9 @@ void ATPGPropogate2InputNOR_InputBOFF_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_OFF);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_OFF);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1135,9 +1133,9 @@ void ATPGPropogate2InputNOR_InputBON_InputAShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1146,9 +1144,9 @@ void ATPGPropogate2InputNOR_InputBON_InputBShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetState(), WIRESTATE_ON);
+    ATPG_UTL.AssertEqual(ATPGInputWireList.at(1)->GetWireState(), WIRESTATE_ON);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 
@@ -1157,9 +1155,9 @@ void ATPGPropogate2InputNOR_InputBON_OutputShouldMatch() {
     std::vector<ATPGGate*> ATPGGateList;
     std::vector<ATPGWire*> ATPGWireList, ATPGInputWireList, ATPGOutputWireList;
     GetATPG2InputNORNetList(netList, ATPGGateList, ATPGWireList, ATPGInputWireList, ATPGOutputWireList);
-    ATPGInputWireList.at(1)->SetState(WIRESTATE_ON);
+    ATPGInputWireList.at(1)->SetWireState(WIRESTATE_ON);
     ATPGPropogate(ATPGInputWireList.at(1));
-    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetState(), WIRESTATE_OFF);
+    ATPG_UTL.AssertEqual(ATPGOutputWireList.at(0)->GetWireState(), WIRESTATE_OFF);
     ATPGCleanupNetList(ATPGGateList, ATPGWireList, &netList);
 }
 

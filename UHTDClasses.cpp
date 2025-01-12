@@ -6,12 +6,7 @@ ATPGGate::ATPGGate(Gate* gate) {
     this->ATPGOutput = nullptr;
 }
 
-// Return the Gate used to instantiate this object
-Gate* ATPGGate::GetGate() { 
-    return this->gate;
-}
-
-// Return the unique integer ID assigned to this object
+// Return the unique integer ID assigned to this object's Gate
 int ATPGGate::GetID() { 
     if (this->gate == nullptr) {
         return -1;
@@ -19,7 +14,20 @@ int ATPGGate::GetID() {
     return this->gate->GetID();
 }
 
-// Return an integer representing the GateType of the ATPGGate
+// Return the name assigned to this object's Gate
+std::string ATPGGate::GetName() { 
+    if (this->gate == nullptr) { 
+        return "";
+    }
+    return this->gate->GetName();
+}
+
+// Return the Gate used to instantiate this object
+Gate* ATPGGate::GetGate() { 
+    return this->gate;
+}
+
+// Return an enum representing the GateType of the ATPGGate
 GateType ATPGGate::GetGateType() { 
     return this->gate->GetGateType();
 }
@@ -61,17 +69,38 @@ ATPGWire::ATPGWire(Wire* wire) {
     this->ATPGOutputs.clear();
 }
 
-// Return the Wire used to instantiate this object
-Wire* ATPGWire::GetWire() { 
-    return this->wire;
-}
-
-// Return the unique integer ID assigned to this object
+// Return the unique integer ID assigned to this object's Wire
 int ATPGWire::GetID() { 
     if (this->wire == nullptr) {
         return -1;
     }
     return this->wire->GetID();
+}
+
+// Return the name representing this object's Wire
+std::string ATPGWire::GetName() {
+    if (this->wire == nullptr) {
+        return "";
+    }
+    return this->wire->GetName();
+}
+
+// Return the Wire used to instantiate this object
+Wire* ATPGWire::GetWire() { 
+    return this->wire;
+}
+
+// Return an enum representing the WireState of the ATPGWire
+WireState ATPGWire::GetWireState() { 
+    return this->wireState;
+}
+
+// Set this Wire's wireState
+void ATPGWire::SetWireState(WireState wireState) { 
+    if (this->wireState == wireState) { 
+        return;
+    }
+    this->wireState = wireState;
 }
 
 // Return a copy of all input ATPGGate in the ATPGWire
@@ -102,18 +131,6 @@ bool ATPGWire::ConnectOutput(ATPGGate* output) {
     }
     this->ATPGOutputs.push_back(output);
     return true;
-}
-
-WireState ATPGWire::GetState() { 
-    return this->wireState;
-}
-
-// Set this Wire's wireState
-void ATPGWire::SetState(WireState wireState) { 
-    if (this->wireState == wireState) { 
-        return;
-    }
-    this->wireState = wireState;
 }
 
 // Return a copy of all IDs in a NetList

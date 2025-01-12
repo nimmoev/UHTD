@@ -21,6 +21,7 @@ int main() {
             std::cout << "Choice is not a valid integer." << std::endl;
             continue;
         }
+        std::cout << std::endl;
 
         // Call tool based upon the choice
         switch(choice) { 

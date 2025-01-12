@@ -1,6 +1,9 @@
 #ifndef UHTD_TESTS_H
 #define UHTD_TESTS_H
 
+#include <string>
+#include <vector>
+
 #include "ATPGTests.h"
 #include "BasicGateLib/BasicGateLibTests.h"
 #include "BasicGateLib/BasicTestLib/BasicTestLib.h"
@@ -12,7 +15,6 @@
 //  2. Define a parameter-less function of type void in source file
 //  3. Append the test function to UHTD_UnitTests in source file as a UnitTest
 
-extern const std::vector<UnitTest> UHTD_UnitTests;
 extern UnitTestList UHTD_UTL;
 
 int main();

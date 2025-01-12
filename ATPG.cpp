@@ -36,7 +36,7 @@ int ATPGGenerateTestVectors(std::vector<Node*> netList, std::vector<std::string>
                 ATPGCleanupNetList(gateList, wireList);
                 return error;
             }
-            tagVector.push_back(wireList.at(wireCtr)->GetWire()->GetName() + " SAF" + std::to_string(SAFCtr));
+            tagVector.push_back(wireList.at(wireCtr)->GetName() + " SAF" + std::to_string(SAFCtr));
             resultVector.push_back(resultStr);
             resultStr = "";
         }
@@ -108,7 +108,7 @@ int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gate
             inputIDMap.insert(std::pair<int, std::vector<int>>(gate->GetID(), GetIDList(gate->GetInputs())));
             outputIDMap.insert(std::pair<int, std::vector<int>>(gate->GetID(), {gate->GetOutput()->GetID()}));
             gateList.push_back(tempGate);
-            ATPGGateMap.insert(std::pair<const int, ATPGGate*>(tempGate->GetGate()->GetID(), tempGate));
+            ATPGGateMap.insert(std::pair<const int, ATPGGate*>(tempGate->GetID(), tempGate));
             continue;
         }
 
@@ -118,7 +118,7 @@ int ATPGTransferNetList(std::vector<Node*> netList, std::vector<ATPGGate*> &gate
             inputIDMap.insert(std::pair<int, std::vector<int>>(wire->GetID(), GetIDList(wire->GetInputs())));
             outputIDMap.insert(std::pair<int, std::vector<int>>(wire->GetID(), GetIDList(wire->GetOutputs())));
             wireList.push_back(tempWire);
-            ATPGWireMap.insert(std::pair<const int, ATPGWire*>(tempWire->GetWire()->GetID(), tempWire));
+            ATPGWireMap.insert(std::pair<const int, ATPGWire*>(tempWire->GetID(), tempWire));
 
             // Additionally, if the wire is an input or a wire is an output, then add it to the corresponding list
             if (tempWire->GetWire()->GetInputs().empty() && !tempWire->GetWire()->GetOutputs().empty()) {
@@ -192,12 +192,12 @@ int ATPGJustify(ATPGWire* wire, WireState wireState) {
     if (wire == nullptr) { 
         return ERROR_ATPG_JUSTIFY_WIRE_IS_NULL;
     }
-    if (wire->GetState() != WIRESTATE_UNDEF && wire->GetState() != wireState) { 
+    if (wire->GetWireState() != WIRESTATE_UNDEF && wire->GetWireState() != wireState) { 
         return ERROR_ATPG_STATE_ALREADY_SET;
     }
     // If there are no inputs, we can set the state and exit quickly
     if (wire->GetInputs().empty()) { 
-        wire->SetState(wireState);
+        wire->SetWireState(wireState);
         return error;
     }
     
@@ -248,10 +248,10 @@ int ATPGJustify(ATPGWire* wire, WireState wireState) {
         }
     }
 
-    if (wire->GetState() != WIRESTATE_UNDEF) {
+    if (wire->GetWireState() != WIRESTATE_UNDEF) {
         return ERROR_ATPG_STATE_ALREADY_SET;
     }
-    wire->SetState(wireState);
+    wire->SetWireState(wireState);
     return error;
 }
 
@@ -280,7 +280,7 @@ bool ATPGJustifyEdgeCase(ATPGGate* inputGate, WireState wireState, int &error) {
 bool ATPGDoesWireListHaveWireState(std::vector<ATPGWire*> wireVector, WireState gateControlVal, int* gateControlIdx) { 
     int inputWireCtr;
     for (inputWireCtr = 0; inputWireCtr < wireVector.size(); inputWireCtr++) { 
-        if (wireVector.at(inputWireCtr)->GetState() == gateControlVal) { 
+        if (wireVector.at(inputWireCtr)->GetWireState() == gateControlVal) { 
             if (gateControlIdx == nullptr) {
                 return true;
             }
@@ -299,7 +299,7 @@ int ATPGPropogate(ATPGWire* wire) {
     if (wire == nullptr) { 
         return ERROR_ATPG_PROPOGATE_WIRE_IS_NULL;
     }
-    if (wire->GetState() == WIRESTATE_UNDEF) { 
+    if (wire->GetWireState() == WIRESTATE_UNDEF) { 
         return ERROR_ATPG_STATE_NOT_SET;
     }
     // If there are no inputs, we can exit quickly
@@ -310,7 +310,7 @@ int ATPGPropogate(ATPGWire* wire) {
     for (outputGateCtr = 0; outputGateCtr < wire->GetOutputs().size(); outputGateCtr++) { 
         outputGate = wire->GetOutputs().at(outputGateCtr);
         gateInputVector = outputGate->GetInputs();
-        if (ATPGPropogateEdgeCase(outputGate, wire->GetState(), error)) { 
+        if (ATPGPropogateEdgeCase(outputGate, wire->GetWireState(), error)) { 
             if (error != ERROR_NONE) { 
                 return error;
             }
@@ -318,10 +318,10 @@ int ATPGPropogate(ATPGWire* wire) {
         // If this is not an edge case we can propogate the state forward and justify that backwards
         else { 
             if (GateInverted.at(outputGate->GetGateType())) { 
-                outputGate->GetOutput()->SetState(WireStateInverted.at(wire->GetState()));
+                outputGate->GetOutput()->SetWireState(WireStateInverted.at(wire->GetWireState()));
             }
             else {
-                outputGate->GetOutput()->SetState(wire->GetState());
+                outputGate->GetOutput()->SetWireState(wire->GetWireState());
             }
         }
         
@@ -347,7 +347,7 @@ bool ATPGPropogateEdgeCase(ATPGGate* gate, WireState wireState, int &error) {
         return true;
     }
     else if (gate->GetGateType() == GATETYPE_INV) { 
-        gate->GetOutput()->SetState(WireStateInverted.at(wireState));
+        gate->GetOutput()->SetWireState(WireStateInverted.at(wireState));
         return true;
     }
     return false;
@@ -358,8 +358,8 @@ std::string ATPGCreateResult(std::vector<ATPGWire*> wireList) {
     int wireCtr;
     std::string tempWireNames = "", tempStates = "";
     for (wireCtr = 0; wireCtr < wireList.size(); wireCtr++) { 
-        tempWireNames += wireList.at(wireCtr)->GetWire()->GetName();
-        tempStates += WireStateString.at(wireList.at(wireCtr)->GetState());
+        tempWireNames += wireList.at(wireCtr)->GetName();
+        tempStates += WireStateString.at(wireList.at(wireCtr)->GetWireState());
     }
     return "{" + tempWireNames + "}={" + tempStates + "}";
 }
@@ -371,11 +371,11 @@ void ATPGClearWireState(ATPGWire* wire) {
     if (wire == nullptr) { 
         return;
     }
-    if (wire->GetState() == WIRESTATE_UNDEF) { 
+    if (wire->GetWireState() == WIRESTATE_UNDEF) { 
         return;
     }
 
-    wire->SetState(WIRESTATE_UNDEF);
+    wire->SetWireState(WIRESTATE_UNDEF);
     for (gateCtr = 0; gateCtr < wire->GetOutputs().size(); gateCtr++) { 
         gate = wire->GetOutputs().at(gateCtr);
         ATPGClearWireState(gate->GetOutput());

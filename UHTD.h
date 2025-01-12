@@ -2,6 +2,7 @@
 #define UHTD_H
 
 #include <iostream>
+#include <string>
 
 #include "ATPG.h"
 #include "BasicGateLib/BasicGateLib.h"
