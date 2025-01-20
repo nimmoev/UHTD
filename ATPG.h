@@ -81,6 +81,9 @@ const std::map<WireState, std::string> WireStateString = {
     {WIRESTATE_UNDEF, "F"},
 };
 
+std::vector<int> GetIDList(std::vector<ATPGGate*> netList);
+std::vector<int> GetIDList(std::vector<ATPGWire*> netList);
+
 void ATPGEntry(const std::vector<Node*> &netList);
 int ATPGGenerateTestVectors(const std::vector<Node*> &netList, std::vector<std::string> &fullResultList, std::vector<std::string> &minimizedResultList);
 int ATPGCase(ATPGWire* wire, WireState wireState, const std::vector<ATPGWire*> &inputWireList, const std::vector<ATPGWire*> &outputWireList, std::string &result);

@@ -9,6 +9,7 @@
 #include "BasicGateLib/BasicTestLib/BasicTestLib.h"
 #include "Error.h"
 #include "Frontend.h"
+#include "InputTests.h"
 
 // To add a new test, follow these instructions:
 //  1. Declare a parameter-less function of type void in header file

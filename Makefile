@@ -1,10 +1,10 @@
 all: UHTD UnitTests clean
 
-UHTD: BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTDClasses.o ATPG.o UHTD.o
-	g++ BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTDClasses.o ATPG.o UHTD.o -o UHTD.out
+UHTD: BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTDClasses.o ATPG.o Input.o UHTD.o
+	g++ BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTDClasses.o ATPG.o Input.o UHTD.o -o UHTD.out
 
-UnitTests: ATPGTests.o UHTDTests.o
-	g++  BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTDClasses.o ATPG.o ATPGTests.o UHTDTests.o -o RunUnitTests.out
+UnitTests: ATPGTests.o InputTests.o UHTDTests.o
+	g++  BasicGateLib.o BasicTestLib.o BasicGateLibTests.o Frontend.o UHTDClasses.o ATPG.o ATPGTests.o Input.o InputTests.o UHTDTests.o -o RunUnitTests.out
 
 BasicGateLib.o: BasicGateLib/BasicGateLib.cpp
 	g++ -c BasicGateLib/BasicGateLib.cpp
@@ -26,6 +26,12 @@ ATPG.o: ATPG.cpp
 
 ATPGTests.o: ATPGTests.cpp
 	g++ -c ATPGTests.cpp
+
+Input.o: Input.cpp
+	g++ -c Input.cpp
+
+InputTests.o: InputTests.cpp
+	g++ -c InputTests.cpp
 
 UHTD.o: UHTD.cpp
 	g++ -c UHTD.cpp

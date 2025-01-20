@@ -1,5 +1,29 @@
 #include "ATPG.h"
 
+// Return a copy of all IDs in a NetList
+std::vector<int> GetIDList(std::vector<ATPGGate*> netList) {
+    std::vector<int> resultIDList;
+    if (netList.empty()) {
+        return resultIDList;
+    }
+    for (int i = 0; i < netList.size(); i++) {
+        resultIDList.push_back(netList.at(i)->GetID());
+    }
+    return resultIDList;
+}
+
+// Return a copy of all IDs in a NetList
+std::vector<int> GetIDList(std::vector<ATPGWire*> netList) {
+    std::vector<int> resultIDList;
+    if (netList.empty()) {
+        return resultIDList;
+    }
+    for (int i = 0; i < netList.size(); i++) {
+        resultIDList.push_back(netList.at(i)->GetID());
+    }
+    return resultIDList;
+}
+
 // Entry point to the ATPG feature
 void ATPGEntry(const std::vector<Node*> &netList) {
     int error = ERROR_NONE, vectorCtr;

@@ -20,6 +20,7 @@ UnitTestList UHTD_UTL("UHTD Unit Tests", std::vector<UnitTest>({
 int main() {
     BGL_UTL.RunTests();
     ATPG_UTL.RunTests();
+    INPUT_UTL.RunTests();
     UHTD_UTL.RunTests();
 }
 

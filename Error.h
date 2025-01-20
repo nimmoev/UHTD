@@ -19,6 +19,10 @@ const int ERROR_NONINT_PRESENT = 0x20;
 const int ERROR_EMPTY_STR = 0x21;
 const int ERROR_INT_OUT_OF_RANGE = 0x22;
 
+// Error codes from Input
+
+const int ERROR_UNKNOWN_TOKENTYPE = 0x40;
+
 // Error codes from ATPG
 
 const int ERROR_ATPG_CASE_WIRE_IS_NULL = 0x60;

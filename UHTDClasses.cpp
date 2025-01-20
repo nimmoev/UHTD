@@ -133,26 +133,18 @@ bool ATPGWire::ConnectOutput(ATPGGate* output) {
     return true;
 }
 
-// Return a copy of all IDs in a NetList
-std::vector<int> GetIDList(std::vector<ATPGGate*> netList) {
-    std::vector<int> resultIDList;
-    if (netList.empty()) {
-        return resultIDList;
-    }
-    for (int i = 0; i < netList.size(); i++) {
-        resultIDList.push_back(netList.at(i)->GetID());
-    }
-    return resultIDList;
+Token::Token(TokenType tokenType, std::string tokenVal) {
+    this->tokenType = tokenType;
+    this->tokenVal = tokenVal;
 }
 
-// Return a copy of all IDs in a NetList
-std::vector<int> GetIDList(std::vector<ATPGWire*> netList) {
-    std::vector<int> resultIDList;
-    if (netList.empty()) {
-        return resultIDList;
-    }
-    for (int i = 0; i < netList.size(); i++) {
-        resultIDList.push_back(netList.at(i)->GetID());
-    }
-    return resultIDList;
+// Return an enum representing the type of this Token
+TokenType Token::GetTokenType() {
+    return this->tokenType;
 }
+
+// Return a string representing the value of this Token
+std::string Token::GetTokenVal() {
+    return this->tokenVal;
+}
+
